@@ -27,7 +27,7 @@ const init = async () => {
     },
   });
 
-  await server.register([Inert, Vision, Bearer, { plugin: Nes, auth: { type: 'direct' } }]);
+  await server.register([Inert, Vision, Bearer, Nes]);
 
   server.app.db = await initDatabase(true, true);
   server.app.rabbit = await initRabbitMQ();
@@ -36,6 +36,18 @@ const init = async () => {
     concurrency: 5,
     pollInterval: 1000,
     taskDirectory: `${__dirname}/jobs`,
+  });
+
+  server.route({
+    path: '/',
+    method: 'GET',
+    handler: async () => {
+      await server.publish('/notifications/proposal', {
+        event: 'ProposalCreated',
+        authorId: 'a13ff74a-48e1-443a-9066-89e75g56430d',
+        zhopa: 'da',
+      });
+    },
   });
 
   server.auth.scheme('dual-auth', dualAuthScheme);
