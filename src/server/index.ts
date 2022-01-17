@@ -9,8 +9,8 @@ import { run } from 'graphile-worker';
 import { initRabbitMQ } from './utils/rabbit';
 import { initDatabase } from './database';
 import { handleValidationError } from './utils';
-import { tokenValidate } from './utils/auth';
-import { initNesWebsocket, WebsocketPaths } from './websocket';
+import { dualAuthScheme } from './utils/auth';
+import { initNesWebsocket } from './websocket';
 
 export let publishInstance;
 const init = async () => {
@@ -27,7 +27,7 @@ const init = async () => {
     },
   });
 
-  await server.register([Nes, Inert, Vision, Bearer]);
+  await server.register([Inert, Vision, Bearer, { plugin: Nes, auth: { type: 'direct' } }]);
 
   server.app.db = await initDatabase(true, true);
   server.app.rabbit = await initRabbitMQ();
@@ -38,10 +38,9 @@ const init = async () => {
     taskDirectory: `${__dirname}/jobs`,
   });
 
-  server.auth.strategy('jwt-access', 'bearer-access-token', {
-    validate: tokenValidate,
-  });
-  server.auth.default('jwt-access');
+  server.auth.scheme('dual-auth', dualAuthScheme);
+  server.auth.strategy('dual-auth', 'dual-auth');
+  server.auth.default('dual-auth');
 
   initNesWebsocket(server);
   publishInstance = server.publish;

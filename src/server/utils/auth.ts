@@ -16,5 +16,29 @@ export async function decodeJwt(token: string, secret: string) {
 export async function tokenValidate(r, token: string) {
   const data = await decodeJwt(token, config.auth.jwt.accessSecretKey);
 
-  return { isValid: true, credentials: { id: data.id }, artifacts: { token } };
+  return {
+    isValid: true,
+    credentials: { sessionId: data.id, id: data.userId, auth: true },
+    artifacts: { token },
+  };
+}
+
+export function dualAuthScheme() {
+  return {
+    authenticate: async function (r, h) {
+      const token: string = r.headers.Authorization
+        ? r.headers.Authorization
+        : r.headers.authorization;
+
+      const isAuthorized = token !== null;
+
+      if (isAuthorized) {
+        const credentials = await tokenValidate(r, token.split(' ')[1]);
+
+        return h.authenticated(credentials);
+      }
+
+      return h.authenticated({ credentials: { auth: false } });
+    },
+  };
 }

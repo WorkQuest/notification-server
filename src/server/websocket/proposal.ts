@@ -4,7 +4,11 @@ enum TrackedEvents {
   ProposalExecuted = 'ProposalExecuted',
 }
 
-export default function (path, notification, options) {
+export default function (path, notification, options): boolean {
+  if (!options.credentials.auth) {
+    return false;
+  }
+
   switch (notification.event) {
     case TrackedEvents.ProposalCreated:
       return notification.authorId === options.credentials.id;
