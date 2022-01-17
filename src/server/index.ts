@@ -9,7 +9,7 @@ import { run } from 'graphile-worker';
 import { initRabbitMQ } from './utils/rabbit';
 import { initDatabase } from './database';
 import { handleValidationError } from './utils';
-import { dualAuthScheme } from './utils/auth';
+import { dualAuthScheme, tokenValidate } from './utils/auth';
 import { initNesWebsocket } from './websocket';
 
 export let publishInstance;
@@ -38,20 +38,11 @@ const init = async () => {
     taskDirectory: `${__dirname}/jobs`,
   });
 
-  server.route({
-    path: '/',
-    method: 'GET',
-    handler: async () => {
-      await server.publish('/notifications/proposal', {
-        event: 'ProposalCreated',
-        authorId: 'a13ff74a-48e1-443a-9066-89e75g56430d',
-        zhopa: 'da',
-      });
-    },
-  });
-
   server.auth.scheme('dual-auth', dualAuthScheme);
   server.auth.strategy('dual-auth', 'dual-auth');
+  server.auth.strategy('jwt-access', 'bearer-access-token', {
+    validate: tokenValidate,
+  });
   server.auth.default('dual-auth');
 
   initNesWebsocket(server);
