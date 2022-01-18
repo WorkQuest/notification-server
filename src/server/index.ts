@@ -11,7 +11,6 @@ import { initDatabase } from './database';
 import { handleValidationError } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
 import { initNesWebsocket } from './websocket';
-import notifications from './routes/notifications';
 
 export let publishInstance;
 const init = async () => {
@@ -46,10 +45,10 @@ const init = async () => {
   });
   server.auth.default('dual-auth');
 
-  server.route(...notifications);
-
   initNesWebsocket(server);
-  publishInstance = server.publish;
+  publishInstance = async (path, payload) => {
+    await server.publish(path, payload);
+  };
   await server.app.scheduler.addJob('executeLocalQueue', {}, { jobKey: 'local_query' });
 
   try {

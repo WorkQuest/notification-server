@@ -11,11 +11,11 @@ export async function messageHandler(message): Promise<void> {
   // Get object with queue command
   const queue = Queue[queueName.toLowerCase()];
   if (!queue) {
-    console.log('Unknown queue name: ' + queueName);
     return;
   }
 
   message.messageId ??= getUUID();
+  message.content = message.content.toString();
 
   try {
     // Executing a command for this queue
@@ -44,6 +44,8 @@ function initQueue(channel, queue) {
 export function initQueues(channel) {
   try {
     initQueue(channel, ConsumerQueues.Bridge);
+    initQueue(channel, ConsumerQueues.Proposal);
+    initQueue(channel, ConsumerQueues.DailyLiquidity);
   } catch (err) {
     console.error(err);
   }
