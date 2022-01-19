@@ -15,3 +15,8 @@ export const paginationSchema = Joi.object({
   limit: paginationLimitSchema,
   offset: paginationOffsetSchema,
 }).label('PaginationSchema');
+
+export const uuidSchema = Joi.string()
+  .uuid()
+  .example('fa0e2e4e-c53f-4af7-8906-1649daa0cce3')
+  .label('uuid');

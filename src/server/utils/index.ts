@@ -22,6 +22,13 @@ export function error(code: number, msg: string, data: object): Boom {
   });
 }
 
+export function output(res?: object | null): object {
+  return {
+    ok: true,
+    result: res,
+  };
+}
+
 export async function handleValidationError(r, h, err) {
   return error(
     400000,

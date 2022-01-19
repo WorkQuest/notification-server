@@ -11,6 +11,7 @@ import { initDatabase } from './database';
 import { handleValidationError } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
 import { initNesWebsocket } from './websocket';
+import routes from './routes';
 
 export let publishInstance;
 const init = async () => {
@@ -45,6 +46,8 @@ const init = async () => {
     validate: tokenValidate,
   });
   server.auth.default('dual-auth');
+
+  server.route(...routes);
 
   initNesWebsocket(server);
   publishInstance = async (path, payload) => {
