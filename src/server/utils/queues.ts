@@ -47,6 +47,7 @@ export function initQueues(channel) {
     initQueue(channel, ConsumerQueues.Bridge);
     initQueue(channel, ConsumerQueues.Proposal);
     initQueue(channel, ConsumerQueues.DailyLiquidity);
+    initQueue(channel, ConsumerQueues.Chat);
   } catch (err) {
     console.error(err);
   }
