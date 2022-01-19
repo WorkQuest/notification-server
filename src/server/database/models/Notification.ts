@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Notification as NotificationType } from '../../websocket';
 import { getUUID } from '../../utils';
 
 @Table
@@ -11,7 +12,7 @@ export class Notification extends Model {
 
   // TODO: Describe interface
   @Column({ type: DataType.JSONB, allowNull: false })
-  notification!: object;
+  notification!: NotificationType;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   seen!: boolean;

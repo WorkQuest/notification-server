@@ -2,6 +2,7 @@ import { Queues } from '../utils';
 import { bridgeNotifications } from './bridge';
 import { proposalNotifications } from './proposal';
 import { dailyLiquidityNotifications } from './dailyLiquidity';
+import { chatNotifications } from './chat';
 
 // Commands list
 export const Queue: Queues = {
@@ -16,5 +17,9 @@ export const Queue: Queues = {
   dailyLiquidity: {
     description: 'Notifications from Daily Liquidity service for all users',
     execute: dailyLiquidityNotifications,
+  },
+  chat: {
+    description: 'Notifications from chat',
+    execute: chatNotifications,
   },
 };

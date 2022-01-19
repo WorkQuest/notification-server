@@ -3,6 +3,7 @@ import { ConsumerQueues } from './consumers';
 import { getUUID } from './index';
 import { onErroredQueue } from './error';
 import { LocalQueue } from '../database/models/LocalQueue';
+import { Notification } from '../database/models/Notification';
 
 export async function messageHandler(message): Promise<void> {
   // Get queue name
@@ -14,7 +15,7 @@ export async function messageHandler(message): Promise<void> {
     return;
   }
 
-  message.messageId ??= getUUID();
+  message.rabbitMessageId ??= getUUID();
   message.content = message.content.toString();
 
   try {
@@ -51,10 +52,23 @@ export function initQueues(channel) {
   }
 }
 
-export async function checkSuccessQuery(message): Promise<void> {
+export async function checkSuccessQuery(message, isNeededNotification: boolean): Promise<void> {
   const errored = await LocalQueue.findOne({
-    where: { 'message.messageId': message.messageId },
+    where: { 'message.rabbitMessageId': message.rabbitMessageId },
   });
+
+  if (isNeededNotification) {
+    const data = JSON.parse(message.content);
+
+    const notifications = data.recipients.map((recipientId) => {
+      return {
+        userId: recipientId,
+        notification: data,
+      };
+    });
+
+    await Notification.bulkCreate(notifications);
+  }
 
   if (errored) {
     await errored.destroy();

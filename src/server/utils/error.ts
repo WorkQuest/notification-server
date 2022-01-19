@@ -8,7 +8,7 @@ export enum Errors {
 
 export async function onErroredQueue(message): Promise<void> {
   const [messageRow, isCreated] = await LocalQueue.findOrCreate({
-    where: { 'message.messageId': message.messageId },
+    where: { 'message.rabbitMessageId': message.rabbitMessageId },
     defaults: {
       message,
       attempts: 1,
