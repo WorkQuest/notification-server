@@ -3,6 +3,7 @@ import { bridgeNotifications } from './bridge';
 import { proposalNotifications } from './proposal';
 import { dailyLiquidityNotifications } from './dailyLiquidity';
 import { chatNotifications } from './chat';
+import { platformNotification } from './platform';
 
 // Commands list
 export const Queue: Queues = {
@@ -21,5 +22,9 @@ export const Queue: Queues = {
   chat: {
     description: 'Notifications from chat',
     execute: chatNotifications,
+  },
+  platform: {
+    description: 'Notification from WorkQuest platform (quest, workers and etc).',
+    execute: platformNotification,
   },
 };

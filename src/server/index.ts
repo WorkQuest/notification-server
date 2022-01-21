@@ -6,7 +6,6 @@ import * as Vision from '@hapi/vision';
 import * as Bearer from 'hapi-auth-bearer-token';
 import config from './config/config';
 import { run } from 'graphile-worker';
-import { initRabbitMQ } from './utils/rabbit';
 import { initDatabase } from './database';
 import { handleValidationError } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
@@ -32,7 +31,6 @@ const init = async () => {
   await server.register([Inert, Vision, Bearer, Nes]);
 
   server.app.db = await initDatabase(true, true);
-  server.app.rabbit = await initRabbitMQ();
   server.app.scheduler = await run({
     connectionString: config.database.link,
     concurrency: 5,

@@ -2,6 +2,7 @@ import bridge from './bridge';
 import proposal from './proposal';
 import dailyLiquidity from './dailyLiquidity';
 import chat from './chat';
+import platform from './platform';
 
 export type Notification = {
   action: string;
@@ -22,4 +23,5 @@ export function initNesWebsocket(server) {
   server.subscription(`${WebsocketPaths.Bridge}/{address}`, { filter: bridge });
   server.subscription(WebsocketPaths.Proposal, { filter: proposal });
   server.subscription(WebsocketPaths.Chat, { filter: chat });
+  server.subscription(WebsocketPaths.Platform, { filter: platform });
 }
