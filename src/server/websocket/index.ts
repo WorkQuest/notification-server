@@ -1,27 +1,13 @@
-import bridge from './bridge';
-import proposal from './proposal';
-import dailyLiquidity from './dailyLiquidity';
-import chat from './chat';
-import platform from './platform';
-
-export type Notification = {
-  action: string;
-  recipients: string[];
-  data: any;
-};
-
-export const enum WebsocketPaths {
-  Bridge = '/notifications/bridge',
-  Proposal = '/notifications/proposal',
-  DailyLiquidity = '/notifications/dailyLiquidity',
-  Chat = '/notifications/chat',
-  Platform = '/notifications/platform',
-}
+import { questSubscriptionOption } from './websoket.quest';
+import { chatSubscriptionOption } from './websoket.chat';
+import { proposalSubscriptionOption } from './websoket.proposal';
+import { dailyLiquiditySubscriptionOption } from './websoket.dailyLiquidity';
+import { bridgeSubscriptionOption } from './websoket.bridge';
 
 export function initNesWebsocket(server) {
-  server.subscription(WebsocketPaths.DailyLiquidity, { filter: dailyLiquidity });
-  server.subscription(`${WebsocketPaths.Bridge}/{address}`, { filter: bridge });
-  server.subscription(WebsocketPaths.Proposal, { filter: proposal });
-  server.subscription(WebsocketPaths.Chat, { filter: chat });
-  server.subscription(WebsocketPaths.Platform, { filter: platform });
+  server.subscription(chatSubscriptionOption.path, chatSubscriptionOption.option);
+  server.subscription(questSubscriptionOption.path, questSubscriptionOption.option);
+  server.subscription(bridgeSubscriptionOption.path, bridgeSubscriptionOption.option);
+  server.subscription(proposalSubscriptionOption.path, proposalSubscriptionOption.option);
+  server.subscription(dailyLiquiditySubscriptionOption.path, dailyLiquiditySubscriptionOption.option);
 }

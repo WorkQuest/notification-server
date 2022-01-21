@@ -28,6 +28,7 @@ const init = async () => {
   });
 
   server.realm.modifiers.route.prefix = '/api';
+
   await server.register([Inert, Vision, Bearer, Nes]);
 
   server.app.db = await initDatabase(true, true);
@@ -48,6 +49,7 @@ const init = async () => {
   server.route(...routes);
 
   initNesWebsocket(server);
+
   publishInstance = async (path, payload) => {
     await server.publish(path, payload);
   };
