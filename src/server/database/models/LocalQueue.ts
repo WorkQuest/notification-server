@@ -18,6 +18,9 @@ export class LocalQueue extends Model {
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
   attempts!: number;
 
+  @Column({ type: DataType.TEXT, allowNull: true })
+  lastError!: string;
+
   @Column({ type: DataType.DATE })
   runAt!: Date;
 

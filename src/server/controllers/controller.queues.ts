@@ -30,7 +30,7 @@ export class QueueController {
       this.initQueue(ConsumerQueues.Proposal);
       this.initQueue(ConsumerQueues.DailyLiquidity);
       this.initQueue(ConsumerQueues.Chat);
-      this.initQueue(ConsumerQueues.Platform);
+      this.initQueue(ConsumerQueues.Quest);
     } catch (err) {
       console.error(err);
     }

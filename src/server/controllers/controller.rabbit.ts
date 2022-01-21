@@ -6,17 +6,13 @@ import { QueueController } from './controller.queues';
 export class RabbitController {
   private channel;
 
-  constructor() {
-    this.initMessageBroker();
-  }
-
   private initQueues() {
     const queueController = new QueueController(this.channel);
 
     queueController.initQueues();
   }
 
-  private initMessageBroker() {
+  public initMessageBroker() {
     amqp.connect(config.rabbit.url, (connectErr, conn) => {
       if (connectErr) {
         console.error(connectErr.message);

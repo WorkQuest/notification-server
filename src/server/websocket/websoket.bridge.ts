@@ -8,7 +8,7 @@ export type BridgeNotificationPayload = {
   action: BridgeNotificationActions;
 };
 
-const dailyLiquiditySubscriptionFilter = async function (
+const bridgeSubscriptionFilter = async function (
   path: string,
   notificationPayload: BridgeNotificationPayload,
   options: { credentials: Credentials },
@@ -18,7 +18,8 @@ const dailyLiquiditySubscriptionFilter = async function (
 
 export const bridgeSubscriptionOption = {
   path: '/notifications/bridge/{address}',
-  option: { filter: dailyLiquiditySubscriptionFilter },
+  pathWithoutAddress: '/notifications/bridge',
+  option: { filter: bridgeSubscriptionFilter },
 };
 
 export async function publishBridgeNotifications(

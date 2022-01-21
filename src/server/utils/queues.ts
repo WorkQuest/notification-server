@@ -7,13 +7,11 @@ export async function checkSuccessQueue(message, isNeededNotification: boolean):
   });
 
   if (isNeededNotification) {
-    const data = JSON.parse(message.content);
+    const notification = JSON.parse(message.content);
+    const queueName = message.fields.routingKey;
 
-    const notifications = data.recipients.map((recipientId) => {
-      return {
-        userId: recipientId,
-        notification: data,
-      };
+    const notifications = notification.recipients.map((userId) => {
+      return { queueName, userId, notification };
     });
 
     await Notification.bulkCreate(notifications);

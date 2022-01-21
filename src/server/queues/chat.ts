@@ -1,8 +1,8 @@
 import { publishInstance } from '../index';
-import { WebsocketPaths } from '../websocket';
 import { checkSuccessQueue } from '../utils/queues';
+import { chatSubscriptionOption } from '../websocket/websoket.chat';
 
 export async function chatNotifications(context, message): Promise<void> {
-  await publishInstance(WebsocketPaths.Chat, context);
+  await publishInstance(chatSubscriptionOption.path, context);
   await checkSuccessQueue(message, false);
 }

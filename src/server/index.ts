@@ -9,6 +9,7 @@ import { run } from 'graphile-worker';
 import { initDatabase } from './database';
 import { handleValidationError } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
+import { rabbitController } from './controllers/controller.rabbit';
 import { initNesWebsocket } from './websocket';
 import routes from './routes';
 
@@ -47,7 +48,7 @@ const init = async () => {
   server.auth.default('dual-auth');
 
   server.route(...routes);
-
+  rabbitController.initMessageBroker();
   initNesWebsocket(server);
 
   publishInstance = async (path, payload) => {

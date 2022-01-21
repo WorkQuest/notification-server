@@ -20,11 +20,12 @@ export class MessageController {
     return { queue, message };
   }
 
-  private async processMessage(message) {
+  private async processMessage(message, err) {
     const [messageRow, isCreated] = await LocalQueue.findOrCreate({
       where: { 'message.rabbitMessageId': message.rabbitMessageId },
       defaults: {
         message,
+        lastError: err,
         attempts: 1,
         runAt: moment().add(5, 'seconds').toDate(),
       },
@@ -48,7 +49,7 @@ export class MessageController {
       // Executing a command for this queue
       await queue.execute(JSON.parse(message.content), message);
     } catch (err) {
-      await this.processMessage(message);
+      await this.processMessage(message, err.message);
     }
   }
 }
