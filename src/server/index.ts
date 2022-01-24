@@ -2,7 +2,9 @@ import * as Qs from 'qs';
 import * as Nes from '@hapi/nes';
 import * as Hapi from '@hapi/hapi';
 import * as Inert from '@hapi/inert';
+import * as HapiCors from 'hapi-cors';
 import * as Vision from '@hapi/vision';
+import * as HapiPulse from 'hapi-pulse';
 import * as Bearer from 'hapi-auth-bearer-token';
 import routes from './routes';
 import config from './config/config';
@@ -70,6 +72,19 @@ const init = async () => {
     await server.publish(path, payload);
   };
   await server.app.scheduler.addJob('executeLocalQueue', {}, { jobKey: 'local_query' });
+
+  await server.register({
+    plugin: HapiPulse,
+    options: {
+      timeout: 15000,
+      signals: ['SIGINT'],
+    },
+  });
+
+  await server.register({
+    plugin: HapiCors,
+    options: config.cors,
+  });
 
   try {
     await server.start();

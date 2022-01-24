@@ -19,6 +19,8 @@
     "dotenv": "^11.0.0",
     "graphile-worker": "^0.12.2",
     "hapi-auth-bearer-token": "^8.0.0",
+    "hapi-cors": "^1.0.3",
+    "hapi-pulse": "^3.0.0",
     "hapi-swagger": "^14.2.4",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
