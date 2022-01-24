@@ -1,6 +1,8 @@
 import { deleteNotification, getNotifications, markRead } from '../api/notifications';
 import { paginationSchema, uuidArraySchema, uuidSchema } from '../database/schemes/common';
-import Joi from 'joi';
+import { emptyOkSchema, outputOkSchema } from '../utils';
+import * as Joi from 'joi';
+import { getNotificationsResponseSchema } from '../database/schemes/notifications';
 
 export default [
   {
@@ -14,6 +16,9 @@ export default [
       description: 'Get notification for account',
       validate: {
         query: paginationSchema.label('GetNotificationQuery'),
+      },
+      response: {
+        schema: outputOkSchema(getNotificationsResponseSchema).label('GetNotificationsResponse'),
       },
     },
   },
@@ -31,6 +36,9 @@ export default [
           notificationId: uuidSchema,
         }).label('DeleteNotificationPayload'),
       },
+      response: {
+        schema: emptyOkSchema,
+      },
     },
   },
   {
@@ -46,6 +54,9 @@ export default [
         payload: Joi.object({
           notificationIds: uuidArraySchema,
         }).label('MarkReadNotificationsPayload'),
+      },
+      response: {
+        schema: emptyOkSchema,
       },
     },
   },

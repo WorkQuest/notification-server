@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment';
+import * as Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
 import { Boom } from '@hapi/boom';
 
@@ -82,6 +82,17 @@ export async function handleValidationError(r, h, err) {
     }),
   );
 }
+
+export const emptyOkSchema = Joi.object({
+  ok: Joi.boolean().example(true),
+}).label('EmptyOkResponse');
+
+export const outputOkSchema = (res: Joi.Schema): Joi.Schema => {
+  return Joi.object({
+    ok: Joi.boolean().example(true),
+    result: res,
+  });
+};
 
 export function sleep(ms: number) {
   return new Promise((res) => setTimeout(res, ms));
