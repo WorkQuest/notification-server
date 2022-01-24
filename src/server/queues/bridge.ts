@@ -4,7 +4,7 @@ import { bridgeSubscriptionOption } from '../websocket/websoket.bridge';
 
 export async function bridgeNotifications(context, message): Promise<void> {
   await publishInstance(
-    bridgeSubscriptionOption.pathWithoutAddress + `/${context.walletAddress}`,
+    bridgeSubscriptionOption.pathWithoutAddress + `/${context.recipient}`,
     context,
   );
   await checkSuccessQueue(message, false);
