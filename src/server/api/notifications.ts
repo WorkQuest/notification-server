@@ -10,14 +10,14 @@ export async function getNotifications(r) {
     order: [['createdAt', 'DESC']],
   });
 
-  const hasUnread = !!(await Notification.findOne({
+  const unreadCount = await Notification.count({
     where: {
       userId: r.auth.credentials.id,
       seen: false,
     },
-  }));
+  });
 
-  return output({ count, notifications: rows, hasUnread });
+  return output({ count, unreadCount, notifications: rows });
 }
 
 export async function deleteNotification(r) {
@@ -32,4 +32,15 @@ export async function deleteNotification(r) {
   return output({});
 }
 
-export async function markRead(r) {}
+export async function markRead(r) {
+  await Notification.update(
+    {
+      seen: true,
+    },
+    {
+      where: { id: r.payload.notificationIds },
+    },
+  );
+
+  return output({});
+}

@@ -1,5 +1,5 @@
-import { deleteNotification, getNotifications } from '../api/notifications';
-import { paginationSchema, uuidSchema } from '../database/schemes/common';
+import { deleteNotification, getNotifications, markRead } from '../api/notifications';
+import { paginationSchema, uuidArraySchema, uuidSchema } from '../database/schemes/common';
 import Joi from 'joi';
 
 export default [
@@ -8,6 +8,7 @@ export default [
     path: '/notifications',
     handler: getNotifications,
     options: {
+      auth: 'jwt-access',
       id: 'v1.notifications.getNotifications',
       tags: ['api', 'notifications'],
       description: 'Get notification for account',
@@ -21,6 +22,7 @@ export default [
     path: '/notifications/delete',
     handler: deleteNotification,
     options: {
+      auth: 'jwt-access',
       id: 'v1.notifications.deleteNotification',
       tags: ['api', 'notifications'],
       description: 'Delete notification',
@@ -28,6 +30,22 @@ export default [
         payload: Joi.object({
           notificationId: uuidSchema,
         }).label('DeleteNotificationPayload'),
+      },
+    },
+  },
+  {
+    method: 'PUT',
+    path: '/notifications/mark-read',
+    handler: markRead,
+    options: {
+      auth: 'jwt-access',
+      id: 'v1.notifications.markReadNotifications',
+      tags: ['api', 'notifications'],
+      description: 'Mark notifications as read',
+      validate: {
+        payload: Joi.object({
+          notificationIds: uuidArraySchema,
+        }).label('MarkReadNotificationsPayload'),
       },
     },
   },

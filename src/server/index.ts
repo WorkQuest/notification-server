@@ -4,14 +4,20 @@ import * as Hapi from '@hapi/hapi';
 import * as Inert from '@hapi/inert';
 import * as Vision from '@hapi/vision';
 import * as Bearer from 'hapi-auth-bearer-token';
+import routes from './routes';
 import config from './config/config';
+import SwaggerOptions from './config/swagger';
 import { run } from 'graphile-worker';
 import { initDatabase } from './database';
-import { handleValidationError } from './utils';
+import { handleValidationError, responseHandler } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
 import { rabbitController } from './controllers/controller.rabbit';
 import { initNesWebsocket } from './websocket';
-import routes from './routes';
+
+const HapiSwagger = require('hapi-swagger');
+const Package = require('../../package.json');
+
+SwaggerOptions.info.version = Package.version;
 
 export let publishInstance;
 const init = async () => {
@@ -30,7 +36,13 @@ const init = async () => {
 
   server.realm.modifiers.route.prefix = '/api';
 
-  await server.register([Inert, Vision, Bearer, Nes]);
+  await server.register([
+    Inert,
+    Vision,
+    Bearer,
+    Nes,
+    { plugin: HapiSwagger, options: SwaggerOptions },
+  ]);
 
   server.app.db = await initDatabase(true, true);
   server.app.scheduler = await run({
@@ -47,7 +59,10 @@ const init = async () => {
   });
   server.auth.default('dual-auth');
 
-  server.route(...routes);
+  server.route(routes);
+
+  server.ext('onPreResponse', responseHandler);
+
   rabbitController.initMessageBroker();
   initNesWebsocket(server);
 

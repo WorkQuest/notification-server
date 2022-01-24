@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 
 config();
 export default {
+  baseUrl: process.env.BASE_URL,
   auth: {
     jwt: {
       accessSecretKey: process.env.JWT_ACCESS_SECRET_KEY,
