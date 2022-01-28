@@ -1,4 +1,5 @@
 import { Credentials } from '../types';
+import appInstances from '../config/appInstances';
 
 export const enum QuestNotificationActions {
   /** Quest flow */
@@ -39,9 +40,6 @@ export const questSubscriptionOption = {
   option: { filter: questSubscriptionFilter },
 };
 
-export async function publishQuestNotifications(
-  server,
-  notificationPayload: QuestNotificationPayload,
-) {
-  return server.publish(questSubscriptionOption.path, notificationPayload);
+export async function publishQuestNotifications(notificationPayload: QuestNotificationPayload) {
+  return appInstances.server.publish(questSubscriptionOption.path, notificationPayload);
 }

@@ -1,4 +1,5 @@
 import { Credentials } from '../types';
+import appInstances from '../config/appInstances';
 
 export const enum ChatNotificationActions {
   /** Group chat */
@@ -32,9 +33,6 @@ export const chatSubscriptionOption = {
   option: { filter: chatSubscriptionFilter },
 };
 
-export async function publishChatNotifications(
-  server,
-  notificationPayload: ChatNotificationPayload,
-) {
-  return server.publish(chatSubscriptionOption.path, notificationPayload);
+export async function publishChatNotifications(notificationPayload: ChatNotificationPayload) {
+  return appInstances.server.publish(chatSubscriptionOption.path, notificationPayload);
 }

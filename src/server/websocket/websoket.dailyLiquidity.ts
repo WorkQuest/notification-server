@@ -1,4 +1,5 @@
 import { Credentials } from '../types';
+import appInstances from '../config/appInstances';
 
 export enum DailyLiquidityNotificationActions {}
 
@@ -22,8 +23,7 @@ export const dailyLiquiditySubscriptionOption = {
 };
 
 export async function publishDailyLiquidityNotifications(
-  server,
   notificationPayload: DailyLiquidityNotificationPayload,
 ) {
-  return server.publish(dailyLiquiditySubscriptionOption.path, notificationPayload);
+  return appInstances.server.publish(dailyLiquiditySubscriptionOption.path, notificationPayload);
 }

@@ -31,6 +31,7 @@ export class QueueController {
       this.initQueue(ConsumerQueues.DailyLiquidity);
       this.initQueue(ConsumerQueues.Chat);
       this.initQueue(ConsumerQueues.Quest);
+      this.initQueue(ConsumerQueues.DAO);
     } catch (err) {
       console.error(err);
     }

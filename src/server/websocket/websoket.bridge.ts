@@ -1,4 +1,5 @@
 import { Credentials } from '../types';
+import appInstances from '../config/appInstances';
 
 export enum BridgeNotificationActions {}
 
@@ -13,7 +14,8 @@ const bridgeSubscriptionFilter = async function (
   notificationPayload: BridgeNotificationPayload,
   options: { credentials: Credentials },
 ): Promise<boolean> {
-  return true; // TODO Credentials by address
+  console.log(notificationPayload);
+  return true;
 };
 
 export const bridgeSubscriptionOption = {
@@ -23,8 +25,11 @@ export const bridgeSubscriptionOption = {
 };
 
 export async function publishBridgeNotifications(
-  server,
+  recipientAddress: string,
   notificationPayload: BridgeNotificationPayload,
 ) {
-  return server.publish(bridgeSubscriptionOption.path, notificationPayload);
+  return appInstances.server.publish(
+    bridgeSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
+    notificationPayload,
+  );
 }

@@ -4,6 +4,7 @@ import { proposalNotifications } from './proposal';
 import { dailyLiquidityNotifications } from './dailyLiquidity';
 import { chatNotifications } from './chat';
 import { questNotifications } from './quest';
+import { daoNotifications } from './dao';
 
 // Commands list
 export const Queue: Queues = {
@@ -12,7 +13,7 @@ export const Queue: Queues = {
     execute: bridgeNotifications,
   },
   proposal: {
-    description: 'Notifications from WorkQuest DAO Proposals for proposal authors',
+    description: 'Notifications for proposals from WorkQuest DAO',
     execute: proposalNotifications,
   },
   dailyLiquidity: {
@@ -26,5 +27,9 @@ export const Queue: Queues = {
   quest: {
     description: 'Quest notifications from WorkQuest platform',
     execute: questNotifications,
+  },
+  dao: {
+    description: 'Quest notifications for dao discussions',
+    execute: daoNotifications,
   },
 };

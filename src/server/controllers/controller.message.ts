@@ -2,9 +2,17 @@ import { getUUID } from '../utils';
 import { LocalQueue } from '../database/models/LocalQueue';
 import moment from 'moment';
 import { Queue } from '../queues';
+import appInstances from '../config/appInstances';
 
 export class MessageController {
+  private async delayMessage(message, delay) {
+    await appInstances.scheduler.addJob('delayNotification', message, {
+      runAt: moment().add(delay, 'seconds').toDate(),
+    });
+  }
+
   private parseMessage(message: any) {
+    console.log(message);
     // Get queue name
     const queueName = message.fields.routingKey;
 
@@ -17,7 +25,7 @@ export class MessageController {
     message.rabbitMessageId ??= getUUID();
     message.content = message.content.toString();
 
-    return { queue, message };
+    return { queue, message, parsedContent: JSON.parse(message.content) };
   }
 
   private async processMessage(message, err) {
@@ -43,11 +51,20 @@ export class MessageController {
   }
 
   public async executeMessage(rawMessage) {
-    const { message, queue } = this.parseMessage(rawMessage);
+    const { message, queue, parsedContent } = this.parseMessage(rawMessage);
+
+    if (parsedContent.delay) {
+      const delay = parsedContent.delay;
+      delete parsedContent.delay;
+
+      await this.delayMessage(message, delay);
+
+      return;
+    }
 
     try {
       // Executing a command for this queue
-      await queue.execute(JSON.parse(message.content), message);
+      await queue.execute(parsedContent, message);
     } catch (err) {
       await this.processMessage(message, err.message);
     }

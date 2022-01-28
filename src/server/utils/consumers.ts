@@ -4,4 +4,5 @@ export enum ConsumerQueues {
   DailyLiquidity = 'dailyLiquidity',
   Chat = 'chat',
   Quest = 'quest',
+  DAO = 'dao',
 }

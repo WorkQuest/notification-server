@@ -1,4 +1,5 @@
 import { Credentials } from '../types';
+import appInstances from '../config/appInstances';
 
 export enum ProposalNotificationActions {
   ProposalCreated = 'ProposalCreated',
@@ -40,8 +41,7 @@ export const proposalSubscriptionOption = {
 };
 
 export async function publishProposalNotifications(
-  server,
   notificationPayload: ProposalNotificationPayload,
 ) {
-  return server.publish(proposalSubscriptionOption.path, notificationPayload);
+  return appInstances.server.publish(proposalSubscriptionOption.path, notificationPayload);
 }
