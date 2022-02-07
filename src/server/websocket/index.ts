@@ -1,8 +1,8 @@
-import { questSubscriptionOption } from './websoket.quest';
-import { chatSubscriptionOption } from './websoket.chat';
-import { proposalSubscriptionOption } from './websoket.proposal';
-import { dailyLiquiditySubscriptionOption } from './websoket.dailyLiquidity';
-import { bridgeSubscriptionOption } from './websoket.bridge';
+import { questSubscriptionOption } from './websocket.quest';
+import { chatSubscriptionOption } from './websocket.chat';
+import { proposalSubscriptionOption } from './websocket.proposal';
+import { dailyLiquiditySubscriptionOption } from './websocket.dailyLiquidity';
+import { bridgeSubscriptionOption } from './websocket.bridge';
 import { daoSubscriptionOption } from './websocket.dao';
 
 export function initNesWebsocket(server) {

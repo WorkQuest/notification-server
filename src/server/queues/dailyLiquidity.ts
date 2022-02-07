@@ -1,5 +1,5 @@
 import { checkSuccessQueue } from '../utils/queues';
-import { publishDailyLiquidityNotifications } from '../websocket/websoket.dailyLiquidity';
+import { publishDailyLiquidityNotifications } from '../websocket/websocket.dailyLiquidity';
 
 export async function dailyLiquidityNotifications(context, message) {
   await publishDailyLiquidityNotifications(context);

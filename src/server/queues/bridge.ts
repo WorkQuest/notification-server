@@ -1,5 +1,5 @@
 import { checkSuccessQueue } from '../utils/queues';
-import { publishBridgeNotifications } from '../websocket/websoket.bridge';
+import { publishBridgeNotifications } from '../websocket/websocket.bridge';
 
 export async function bridgeNotifications(context, message): Promise<void> {
   await publishBridgeNotifications(context.recipient, context);
