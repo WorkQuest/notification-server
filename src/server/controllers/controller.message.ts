@@ -12,7 +12,6 @@ export class MessageController {
   }
 
   private parseMessage(message: any) {
-    console.log(message);
     // Get queue name
     const queueName = message.fields.routingKey;
 
