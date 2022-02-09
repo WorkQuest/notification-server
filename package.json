@@ -27,8 +27,8 @@
     "moment": "^2.29.1",
     "qs": "^6.10.3",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.6.2",
-    "sequelize-typescript": "^2.0.0",
+    "sequelize": "6.6.2",
+    "sequelize-typescript": "2.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
