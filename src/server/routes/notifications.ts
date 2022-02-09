@@ -24,7 +24,7 @@ export default [
   },
   {
     method: 'DELETE',
-    path: '/notifications/delete',
+    path: '/notifications/delete/{notificationId}',
     handler: deleteNotification,
     options: {
       auth: 'jwt-access',
@@ -32,7 +32,7 @@ export default [
       tags: ['api', 'notifications'],
       description: 'Delete notification',
       validate: {
-        payload: Joi.object({
+        params: Joi.object({
           notificationId: uuidSchema,
         }).label('DeleteNotificationPayload'),
       },

@@ -21,7 +21,7 @@ export async function getNotifications(r) {
 }
 
 export async function deleteNotification(r) {
-  const notification = await Notification.findByPk(r.payload.notificationId);
+  const notification = await Notification.findByPk(r.params.notificationId);
 
   if (!notification) {
     return error(Errors.NotFound, 'Notification not found', { field: ['notificationId'] });
