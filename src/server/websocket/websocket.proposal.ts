@@ -24,10 +24,10 @@ export const proposalSubscriptionFilter = async function (
 
   switch (notificationPayload.action) {
     case ProposalNotificationActions.ProposalCreated:
-      return notificationPayload.data.authorId === options.credentials.id;
+      return notificationPayload.recipients.includes(options.credentials.id);
 
     case ProposalNotificationActions.VoteCast:
-      return notificationPayload.data.authorId === options.credentials.id;
+      return notificationPayload.recipients.includes(options.credentials.id);
 
     default: {
       return false;
