@@ -26,12 +26,14 @@ export class QueueController {
 
   public initQueues() {
     try {
-      this.initQueue(ConsumerQueues.Bridge);
-      this.initQueue(ConsumerQueues.Proposal);
-      this.initQueue(ConsumerQueues.DailyLiquidity);
+      this.initQueue(ConsumerQueues.DAO);
       this.initQueue(ConsumerQueues.Chat);
       this.initQueue(ConsumerQueues.Quest);
-      this.initQueue(ConsumerQueues.DAO);
+      this.initQueue(ConsumerQueues.Bridge);
+      this.initQueue(ConsumerQueues.Proposal);
+      this.initQueue(ConsumerQueues.Referral);
+      this.initQueue(ConsumerQueues.PensionFund);
+      this.initQueue(ConsumerQueues.DailyLiquidity);
     } catch (err) {
       console.error(err);
     }

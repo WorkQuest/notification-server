@@ -14,7 +14,6 @@ const bridgeSubscriptionFilter = async function (
   notificationPayload: BridgeNotificationPayload,
   options: { credentials: Credentials },
 ): Promise<boolean> {
-  console.log(notificationPayload);
   return true;
 };
 

@@ -5,6 +5,7 @@ import { dailyLiquidityNotifications } from './dailyLiquidity';
 import { chatNotifications } from './chat';
 import { questNotifications } from './quest';
 import { daoNotifications } from './dao';
+import { referralNotifications } from './referral';
 
 // Commands list
 export const Queue: Queues = {
@@ -31,5 +32,9 @@ export const Queue: Queues = {
   dao: {
     description: 'Quest notifications for dao discussions',
     execute: daoNotifications,
+  },
+  referral: {
+    description: 'Referral program notifications',
+    execute: referralNotifications,
   },
 };
