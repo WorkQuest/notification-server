@@ -1,3 +1,4 @@
+import { ConsumerQueues } from '../../utils/consumers';
 import * as Joi from 'joi';
 import {
   booleanSchema,
@@ -7,6 +8,15 @@ import {
   uuidArraySchema,
   uuidSchema,
 } from './common';
+
+export const notificationsExcludeSchema = Joi.string()
+  .valid(...Object.values(ConsumerQueues))
+  .example(ConsumerQueues.DAO)
+  .label('NotificationsExclude');
+
+export const notificationsExcludeArray = Joi.array()
+  .items(notificationsExcludeSchema)
+  .label('NotificationsExcludeArray');
 
 export const notificationActionSchema = Joi.string()
   .example('questStarted')

@@ -1,10 +1,16 @@
 import { Notification } from '../database/models/Notification';
 import { error, output } from '../utils';
 import { Errors } from '../utils/error';
+import { Op } from 'sequelize';
 
 export async function getNotifications(r) {
   const { count, rows } = await Notification.findAndCountAll({
-    where: { userId: r.auth.credentials.id },
+    where: {
+      [Op.and]: {
+        userId: r.auth.credentials.id,
+        queueName: { [Op.notIn]: r.query.exclude },
+      },
+    },
     limit: r.query.limit,
     offset: r.query.offset,
     order: [['createdAt', 'DESC']],
@@ -12,8 +18,11 @@ export async function getNotifications(r) {
 
   const unreadCount = await Notification.count({
     where: {
-      userId: r.auth.credentials.id,
-      seen: false,
+      [Op.and]: {
+        userId: r.auth.credentials.id,
+        seen: false,
+        queueName: { [Op.notIn]: r.query.exclude },
+      },
     },
   });
 
