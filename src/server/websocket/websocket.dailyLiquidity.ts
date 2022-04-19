@@ -4,8 +4,8 @@ import appInstances from '../config/appInstances';
 export enum DailyLiquidityNotificationActions {}
 
 export type DailyLiquidityNotificationPayload = {
-  data: any; // TODO
-  // recipients: string[];
+  data: any;
+  recipients: string[];
   action: DailyLiquidityNotificationActions;
 };
 
