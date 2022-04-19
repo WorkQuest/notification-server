@@ -5,6 +5,6 @@ export enum ConsumerQueues {
   Bridge = 'bridge',
   Proposal = 'proposal',
   Referral = 'referral',
-  PensionFund = 'pensionFund',
-  DailyLiquidity = 'dailyLiquidity',
+  PensionFund = 'pension_fund',
+  DailyLiquidity = 'daily_liquidity',
 }

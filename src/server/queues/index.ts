@@ -17,7 +17,7 @@ export const Queue: Queues = {
     description: 'Notifications for proposals from WorkQuest DAO',
     execute: proposalNotifications,
   },
-  dailyLiquidity: {
+  daily_liquidity: {
     description: 'Notifications from Daily Liquidity service for all users',
     execute: dailyLiquidityNotifications,
   },

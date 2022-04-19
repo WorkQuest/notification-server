@@ -50,7 +50,13 @@ export class MessageController {
   }
 
   public async executeMessage(rawMessage) {
-    const { message, queue, parsedContent } = this.parseMessage(rawMessage);
+    const parsedMessage = this.parseMessage(rawMessage);
+
+    if (!parsedMessage) {
+      return;
+    }
+
+    const { message, queue, parsedContent } = parsedMessage;
 
     if (parsedContent.delay) {
       const delay = parsedContent.delay;
