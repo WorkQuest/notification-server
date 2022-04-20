@@ -5,7 +5,8 @@ export default {
   baseUrl: process.env.BASE_URL,
   auth: {
     jwt: {
-      accessSecretKey: process.env.JWT_ACCESS_SECRET_KEY,
+      mainAccessSecretKey: process.env.MAIN_JWT_ACCESS_SECRET_KEY,
+      adminAccessSecretKey: process.env.ADMIN_JWT_ACCESS_SECRET_KEY,
     },
   },
   rabbit: {

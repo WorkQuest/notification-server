@@ -1,6 +1,12 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { getUUID } from '../../utils';
 
+interface INotificationData {
+  recipients: string[];
+  action: string;
+  data: object;
+}
+
 @Table
 export class Notification extends Model {
   @Column({ type: DataType.STRING, primaryKey: true, defaultValue: () => getUUID() })
@@ -12,9 +18,8 @@ export class Notification extends Model {
   @Column({ type: DataType.STRING, allowNull: false })
   queueName!: string;
 
-  // TODO: Describe interface
   @Column({ type: DataType.JSONB, allowNull: false })
-  notification!: object;
+  notification!: INotificationData;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   seen!: boolean;
