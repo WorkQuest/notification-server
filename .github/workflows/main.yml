@@ -52,7 +52,10 @@ jobs:
           cd ci-scripts
           ansible-playbook -i "${{ secrets.REMOTE_HOST }}" -e "ansible_user=${{ secrets.REMOTE_USER }} \
             DB_LINK=${{ secrets.PROD_DB_LINK }} \
-            JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_JWT_ACCESS_SECRET_KEY }} \
+            
+            MAIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_MAIN_JWT_ACCESS_SECRET_KEY }} \
+            ADMIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_ADMIN_JWT_ACCESS_SECRET_KEY }} \
+            
             SERVER_HOST=${{ secrets.PROD_SERVER_HOST }} \
             SERVER_PORT=${{ secrets.PROD_SERVER_PORT }} \
 
