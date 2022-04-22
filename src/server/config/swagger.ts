@@ -36,13 +36,13 @@ __Responses from REST API:__
 \`\`\`
 {
   count: number, // Notifications count for user
-  unreadCount: number // Unread notifications count for user
+  unreadCount: number, // Unread notifications count for user
   notifications: {
     id: string, // Notification id, that used in mark read and delete notifications
     userId: string, // Notification recipient userId
-    queueName: string// Notification queue name
-    seen: boolean // Whether the notification was read by the user
-    createdAt: string (date in string) // Datetime when notification was created,
+    queueName: string, // Notification queue name
+    seen: boolean, // Whether the notification was read by the user
+    createdAt: string (date in string), // Datetime when notification was created,
     notification: {
       recipients: string[], // Notification recipients here
       action: string, // Notification action here
