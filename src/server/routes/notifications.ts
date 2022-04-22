@@ -1,8 +1,7 @@
-import { deleteNotification, getNotifications, markRead } from '../api/notifications';
+import * as handlers from '../api/notifications';
 import {
   paginationLimitSchema,
   paginationOffsetSchema,
-  paginationSchema,
   uuidArraySchema,
   uuidSchema,
 } from '../database/schemes/common';
@@ -17,12 +16,18 @@ export default [
   {
     method: 'GET',
     path: '/notifications',
-    handler: getNotifications,
+    handler: handlers.getNotifications,
     options: {
       auth: 'jwt-access',
       id: 'v1.notifications.getNotifications',
       tags: ['api', 'notifications'],
       description: 'Get notification for account',
+      notes: `
+Available notifications queues:
+quest - notifications from quest backend and contract;
+proposal - notifications from WorkQuest DAO Proposals;
+dao - notifications from WorkQuest DAO Platform.
+      `,
       validate: {
         query: Joi.object({
           limit: paginationLimitSchema,
@@ -38,7 +43,7 @@ export default [
   {
     method: 'DELETE',
     path: '/notifications/delete/{notificationId}',
-    handler: deleteNotification,
+    handler: handlers.deleteNotification,
     options: {
       auth: 'jwt-access',
       id: 'v1.notifications.deleteNotification',
@@ -57,7 +62,7 @@ export default [
   {
     method: 'PUT',
     path: '/notifications/mark-read',
-    handler: markRead,
+    handler: handlers.markRead,
     options: {
       auth: 'jwt-access',
       id: 'v1.notifications.markReadNotifications',
