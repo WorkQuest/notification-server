@@ -54,15 +54,25 @@ __Responses from REST API:__
 
 ---
 
-### Available WebSocket Queues:
+### Available Queues:
 * __dao__ - notifications from WorkQuest DAO Platform, like discussions;
 * __chat__ - notifications from chats;
 * __quest__ - notifications from backend or contract about quest actions;
+* __bridge__ - notifications from bridge;
 * __proposal__ - DAO Proposals notifications from contract;
 * __referral__ - Referral Program notifications from contract;
-* __pension_fund__ - Pension Fund notifications from contract and backend;
 * __daily_liquidity__ - notifications for WQT_WBNB and WQT_WETH liquidity; 
 
+---
+
+### Available WebSocket Subscriptions
+* __/notifications/dao__ - need JWT auth;
+* __/notifications/chat__ - need JWT auth;
+* __/notifications/quest__ - need JWT auth;
+* __/notifications/bridge/{address}__ - without auth;
+* __/notifications/proposal__ - need JWT auth;
+* __/notifications/referral/{address}__ - without auth;
+* __/notifications/dailyLiquidity__ - without auth; 
 ---
 
 ### Queues actions:
@@ -97,22 +107,18 @@ __chat:__
 
 __proposal:__
 
-
+__bridge:__
+* SwapInitialized
+* SwapRedeemed
 
 __referral:__
 * RegisteredAffiliat
 * RewardClaimed
 * PaidReferral
 
-__pension_fund:__
-
-
-
-__daily_liquidity:__
-
-
-
-
+__dailyLiquidity:__
+* DailyLiquidityWqtWbnb
+* DailyLiquidityWqtWeth
     `,
   },
   securityDefinitions: {

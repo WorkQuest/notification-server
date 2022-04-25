@@ -18,7 +18,6 @@ const referralSubscriptionFilter = async function (
   notificationPayload: ReferralNotificationPayload,
   options: { credentials: Credentials },
 ): Promise<boolean> {
-  console.log(1313);
   return true;
 };
 
