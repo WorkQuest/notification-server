@@ -5,6 +5,7 @@ import { dailyLiquiditySubscriptionOption } from './websocket.dailyLiquidity';
 import { bridgeSubscriptionOption } from './websocket.bridge';
 import { daoSubscriptionOption } from './websocket.dao';
 import { referralSubscriptionOption } from './websocket.referral';
+import { pensionFundSubscriptionOption } from './websocket.pensionFund';
 
 export function initNesWebsocket(server) {
   server.subscription(daoSubscriptionOption.path, daoSubscriptionOption.option);
@@ -13,6 +14,7 @@ export function initNesWebsocket(server) {
   server.subscription(bridgeSubscriptionOption.path, bridgeSubscriptionOption.option);
   server.subscription(proposalSubscriptionOption.path, proposalSubscriptionOption.option);
   server.subscription(referralSubscriptionOption.path, referralSubscriptionOption.option);
+  server.subscription(pensionFundSubscriptionOption.path, pensionFundSubscriptionOption.option);
   server.subscription(
     dailyLiquiditySubscriptionOption.path,
     dailyLiquiditySubscriptionOption.option,

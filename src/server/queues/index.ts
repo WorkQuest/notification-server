@@ -6,11 +6,12 @@ import { chatNotifications } from './chat';
 import { questNotifications } from './quest';
 import { daoNotifications } from './dao';
 import { referralNotifications } from './referral';
+import { pensionFundNotifications } from './pensionFund';
 
 // Commands list
 export const Queue: Queues = {
   bridge: {
-    description: 'Notifications from bridge service for user connected to ws by wallet',
+    description: 'Notifications from bridge service by wallet address',
     execute: bridgeNotifications,
   },
   proposal: {
@@ -36,5 +37,9 @@ export const Queue: Queues = {
   referral: {
     description: 'Referral program notifications',
     execute: referralNotifications,
+  },
+  pension_fund: {
+    description: 'Pension Fund notifications by wallet address',
+    execute: pensionFundNotifications,
   },
 };
