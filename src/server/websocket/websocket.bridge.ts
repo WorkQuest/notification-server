@@ -1,34 +1,34 @@
 import { Credentials } from '../types';
 import appInstances from '../config/appInstances';
 
-export enum BridgeNotificationActions {}
+export enum BridgeNotificationActions { }
 
 export type BridgeNotificationPayload = {
-  data: any; // TODO
-  // recipients: string[];
-  action: BridgeNotificationActions;
+	data: any; // TODO
+	recipients: string[];
+	action: BridgeNotificationActions;
 };
 
-const bridgeSubscriptionFilter = async function (
-  path: string,
-  notificationPayload: BridgeNotificationPayload,
-  options: { credentials: Credentials },
+const bridgeSubscriptionFilter = async function(
+	path: string,
+	notificationPayload: BridgeNotificationPayload,
+	options: { credentials: Credentials },
 ): Promise<boolean> {
-  return true;
+	return true;
 };
 
 export const bridgeSubscriptionOption = {
-  path: '/notifications/bridge/{address}',
-  pathWithoutAddress: '/notifications/bridge',
-  option: { filter: bridgeSubscriptionFilter },
+	path: '/notifications/bridge/{address}',
+	pathWithoutAddress: '/notifications/bridge',
+	option: { filter: bridgeSubscriptionFilter },
 };
 
 export async function publishBridgeNotifications(
-  recipientAddress: string,
-  notificationPayload: BridgeNotificationPayload,
+	recipientAddress: string,
+	notificationPayload: BridgeNotificationPayload,
 ) {
-  return appInstances.server.publish(
-    bridgeSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
-    notificationPayload,
-  );
+	return appInstances.server.publish(
+		bridgeSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
+		notificationPayload,
+	);
 }

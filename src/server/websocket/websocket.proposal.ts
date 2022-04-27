@@ -13,35 +13,27 @@ export type ProposalNotificationPayload = {
   action: ProposalNotificationActions;
 };
 
-export const proposalSubscriptionFilter = async function (
+export const proposalSubscriptionFilter = async function(
   path: string,
   notificationPayload: ProposalNotificationPayload,
   options: { credentials: Credentials },
 ): Promise<boolean> {
-  if (!options.credentials.auth) {
-    return false;
-  }
-
-  switch (notificationPayload.action) {
-    case ProposalNotificationActions.ProposalCreated:
-      return notificationPayload.recipients.includes(options.credentials.id);
-
-    case ProposalNotificationActions.VoteCast:
-      return notificationPayload.recipients.includes(options.credentials.id);
-
-    default: {
-      return false;
-    }
-  }
+  return true;
 };
 
 export const proposalSubscriptionOption = {
-  path: '/notifications/proposal',
+  path: '/notifications/proposal/{address}',
+  pathWithoutAddress: '/notifications/proposal',
   option: { filter: proposalSubscriptionFilter },
 };
 
 export async function publishProposalNotifications(
+  recipientAddress: string,
   notificationPayload: ProposalNotificationPayload,
 ) {
-  return appInstances.server.publish(proposalSubscriptionOption.path, notificationPayload);
+  return appInstances.server.publish(
+    proposalSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
+    notificationPayload
+  );
 }
+

@@ -61,6 +61,7 @@ __Responses from REST API:__
 * __bridge__ - notifications from bridge;
 * __proposal__ - DAO Proposals notifications from contract;
 * __referral__ - Referral Program notifications from contract;
+* __pension_fund__ - notifications from Pension Fund;
 * __daily_liquidity__ - notifications for WQT_WBNB and WQT_WETH liquidity; 
 
 ---
@@ -70,9 +71,10 @@ __Responses from REST API:__
 * __/notifications/chat__ - need JWT auth;
 * __/notifications/quest__ - need JWT auth;
 * __/notifications/bridge/{address}__ - without auth;
-* __/notifications/proposal__ - need JWT auth;
+* __/notifications/proposal/{address}__ - without auth;
 * __/notifications/referral/{address}__ - without auth;
-* __/notifications/dailyLiquidity__ - without auth; 
+* __/notifications/pensionFund/{address}__ - without auth;
+* __/notifications/dailyLiquidity__ - without auth.
 ---
 
 ### Queues actions:
@@ -105,7 +107,15 @@ __chat:__
 * messageReadByRecipient
 * newMessage
 
+__pensionFund:__
+* Withdrew
+* Received
+* WalletUpdated
+
 __proposal:__
+* ProposalCreated
+* VoteCast
+* ProposalExecuted
 
 __bridge:__
 * SwapInitialized
