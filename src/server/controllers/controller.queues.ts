@@ -29,6 +29,7 @@ export class QueueController {
       this.initQueue(ConsumerQueues.DAO);
       this.initQueue(ConsumerQueues.Chat);
       this.initQueue(ConsumerQueues.Quest);
+      this.initQueue(ConsumerQueues.Report);
       this.initQueue(ConsumerQueues.Bridge);
       this.initQueue(ConsumerQueues.Proposal);
       this.initQueue(ConsumerQueues.Referral);
