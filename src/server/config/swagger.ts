@@ -126,6 +126,7 @@ __bridge:__
 __report:__
 * ReportDecided
 * ReportRejected
+* ReportSubmitted
 
 __referral:__
 * RegisteredAffiliat

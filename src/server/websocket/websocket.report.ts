@@ -4,6 +4,7 @@ import appInstances from '../config/appInstances';
 export enum ReportNotificationActions {
   ReportDecided = 'ReportDecided',
   ReportRejected = 'ReportRejected',
+  ReportSubmitted = 'ReportSubmitted',
 }
 
 export type ReportNotificationPayload = {
