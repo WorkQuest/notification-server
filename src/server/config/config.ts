@@ -19,6 +19,10 @@ export default {
   database: {
     link: process.env.DB_LINK,
   },
+  push: {
+    apiFile: process.env.PUSH_API_FILE,
+    database: process.env.PUSH_DATABASE,
+  },
   cors: {
     origins: process.env.CORS_ORIGINS ? JSON.parse(process.env.CORS_ORIGINS) : ['*'],
     methods: process.env.CORS_METHODS
