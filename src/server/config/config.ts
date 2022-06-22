@@ -21,7 +21,7 @@ export default {
   },
   push: {
     apiFile: process.env.PUSH_API_FILE,
-    database: process.env.PUSH_DATABASE,
+    database: process.env.PUSH_API_DATABASE,
   },
   cors: {
     origins: process.env.CORS_ORIGINS ? JSON.parse(process.env.CORS_ORIGINS) : ['*'],

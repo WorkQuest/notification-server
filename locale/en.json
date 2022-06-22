@@ -1,0 +1,50 @@
+{
+  "translation": {
+    "title": {
+      "questEdited": "One of the quests' have been changed: please check the conditions once again",
+      "questEditedOnContract": "One of the quests' have been changed on contract: please check the conditions once again.",
+      "questEndSoon": "Quest end soon",
+      "workerRejectedQuest": "Worker rejected quest",
+      "workerAcceptedQuest": "Worker accepted quest",
+      "workerRespondedToQuest": "Worker responded to quest",
+      "employerInvitedWorkerToQuest": "You have been invited to quest",
+      "workerAcceptedInvitationToQuest": "Worker accepted invitation to quest",
+      "workerRejectedInvitationToQuest": "Worker rejected invitation to quest",
+      "employerRejectedWorkersResponse": "Employer rejected your response",
+      "userLeftReviewAboutQuest": "User left review about quest",
+      "openDispute": "A dispute was opened on the quest",
+      "adminTakeDispute": "Admin take dispute",
+      "disputeDecision": "Admin decide dispute",
+      "groupChatCreate": "A group chat has been created",
+      "groupChatAddAdmin": "Admin added to chat",
+      "groupChatLeaveAdmin": "Admin left from chat",
+      "groupChatAddUser": "User added to chat",
+      "groupChatDeleteUser": "User deleted from chat",
+      "groupChatLeaveUser": "User left from chat",
+      "newMessage": "New message"
+    },
+    "description": {
+      "questEdited": "One of the quests' have been changed: please check the conditions once again",
+      "questEditedOnContract": "One of the quests' have been changed on contract: please check the conditions once again.",
+      "questEndSoon": "Quest end soon",
+      "workerRejectedQuest": "Worker rejected quest",
+      "workerAcceptedQuest": "Worker accepted quest",
+      "workerRespondedToQuest": "Worker responded to quest",
+      "employerInvitedWorkerToQuest": "You have been invited to quest",
+      "workerAcceptedInvitationToQuest": "Worker accepted invitation to quest",
+      "workerRejectedInvitationToQuest": "Worker rejected invitation to quest",
+      "employerRejectedWorkersResponse": "Employer rejected your response",
+      "userLeftReviewAboutQuest": "User left review about quest",
+      "openDispute": "A dispute was opened on the quest",
+      "adminTakeDispute": "Admin take dispute",
+      "disputeDecision": "Admin decide dispute",
+      "groupChatCreate": "A group chat has been created",
+      "groupChatAddAdmin": "Admin added to chat",
+      "groupChatLeaveAdmin": "Admin left from chat",
+      "groupChatAddUser": "User added to chat",
+      "groupChatDeleteUser": "User deleted from chat",
+      "groupChatLeaveUser": "User left from chat",
+      "newMessage": "New message"
+    }
+  }
+}

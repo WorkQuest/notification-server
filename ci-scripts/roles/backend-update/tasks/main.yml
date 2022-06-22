@@ -49,6 +49,11 @@
     src: ./app.json.j2
     dest: '{{ backend_bin }}/app.json'
 
+- name: Copy or generate Google FireBase Admin File
+  copy:
+    content: "{{ PUSH_API_FILE_DATA | b64decode }}"
+    dest: '{{ backend_bin }}/{{ PUSH_API_FILE }}'
+
 - name: Start/reload backend process
   shell: pm2 reload app.json
   args:
