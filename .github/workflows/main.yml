@@ -51,16 +51,16 @@ jobs:
           chmod 700 ci-scripts
           cd ci-scripts
           ansible-playbook -i "${{ secrets.REMOTE_HOST }}" -e "ansible_user=${{ secrets.REMOTE_USER }} \
-            DB_LINK=${{ secrets.PROD_DB_LINK }} \
+            DB_LINK=${{ secrets.DB_LINK }} \
             
-            MAIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_MAIN_JWT_ACCESS_SECRET_KEY }} \
-            ADMIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_ADMIN_JWT_ACCESS_SECRET_KEY }} \
+            MAIN_JWT_ACCESS_SECRET_KEY=${{ secrets.MAIN_JWT_ACCESS_SECRET_KEY }} \
+            ADMIN_JWT_ACCESS_SECRET_KEY=${{ secrets.ADMIN_JWT_ACCESS_SECRET_KEY }} \
             
-            SERVER_HOST=${{ secrets.PROD_SERVER_HOST }} \
-            SERVER_PORT=${{ secrets.PROD_SERVER_PORT }} \
+            SERVER_HOST=${{ secrets.SERVER_HOST }} \
+            SERVER_PORT=${{ secrets.SERVER_PORT }} \
 
-            BASE_URL=${{ secrets.PROD_BASE_URL }} \
-            RABBIT_URL=${{ secrets.PROD_RABBIT_URL }} \
+            BASE_URL=${{ secrets.BASE_URL }} \
+            RABBIT_URL=${{ secrets.RABBIT_URL }} \
           
             backend_bin=${{ secrets.backend_bin }} \
             PM2_SERVICE_NAME=${{ secrets.PM2_SERVICE_NAME }} \
