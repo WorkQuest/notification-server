@@ -1,5 +1,11 @@
 export enum ConsumerQueues {
+  DAO = 'dao',
+  Chat = 'chat',
+  Quest = 'quest',
+  Report = 'report',
   Bridge = 'bridge',
   Proposal = 'proposal',
-  DailyLiquidity = 'dailyLiquidity',
+  Referral = 'referral',
+  PensionFund = 'pension_fund',
+  DailyLiquidity = 'daily_liquidity',
 }

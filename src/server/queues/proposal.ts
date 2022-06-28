@@ -1,7 +1,7 @@
-import { publishInstance } from '../index';
-import { checkSuccessQuery } from '../utils/queues';
+import { checkSuccessQueue } from '../utils/queues';
+import { publishProposalNotifications } from '../websocket/websocket.proposal';
 
 export async function proposalNotifications(context, message) {
-  await publishInstance(context, message);
-  await checkSuccessQuery(message);
+  await publishProposalNotifications(context.recipients[0], context);
+  await checkSuccessQueue(message, true);
 }

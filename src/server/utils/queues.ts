@@ -1,58 +1,23 @@
-import { Queue } from '../queues';
-import { ConsumerQueues } from './consumers';
-import { getUUID } from './index';
-import { onErroredQueue } from './error';
 import { LocalQueue } from '../database/models/LocalQueue';
+import { Notification } from '../database/models/Notification';
 
-export async function messageHandler(message): Promise<void> {
-  // Get queue name
-  const queueName = message.fields.routingKey;
-
-  // Get object with queue command
-  const queue = Queue[queueName.toLowerCase()];
-  if (!queue) {
-    console.log('Unknown queue name: ' + queueName);
-    return;
-  }
-
-  message.messageId ??= getUUID();
-
-  try {
-    // Executing a command for this queue
-    await queue.execute(JSON.parse(message.content), message);
-  } catch (err) {
-    await onErroredQueue(message);
-  }
-}
-
-function initQueue(channel, queue) {
-  // Create queue
-  channel.assertQueue(queue, {
-    durable: false,
-  });
-
-  // Init queue listener
-  channel.consume(
-    queue,
-    (message) => {
-      messageHandler(message);
-    },
-    { noAck: true },
-  );
-}
-
-export function initQueues(channel) {
-  try {
-    initQueue(channel, ConsumerQueues.Bridge);
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function checkSuccessQuery(message): Promise<void> {
+export async function checkSuccessQueue(message, isNeededNotification: boolean): Promise<void> {
   const errored = await LocalQueue.findOne({
-    where: { 'message.messageId': message.messageId },
+    where: { 'message.rabbitMessageId': message.rabbitMessageId },
   });
+
+  if (isNeededNotification) {
+    const notification = JSON.parse(message.content);
+    const queueName = message.fields.routingKey;
+
+    const notifications = notification.recipients.map((userId) => {
+      return { queueName, userId, notification };
+    }).filter((notification) => notification.userId && !notification.userId.startsWith('0x'));
+
+    if (notifications.length) {
+      await Notification.bulkCreate(notifications);
+    }
+  }
 
   if (errored) {
     await errored.destroy();

@@ -2,17 +2,26 @@ import * as Qs from 'qs';
 import * as Nes from '@hapi/nes';
 import * as Hapi from '@hapi/hapi';
 import * as Inert from '@hapi/inert';
+import * as HapiCors from 'hapi-cors';
 import * as Vision from '@hapi/vision';
+import * as HapiPulse from 'hapi-pulse';
 import * as Bearer from 'hapi-auth-bearer-token';
+import routes from './routes';
 import config from './config/config';
+import SwaggerOptions from './config/swagger';
+import appInstances from './config/appInstances';
 import { run } from 'graphile-worker';
-import { initRabbitMQ } from './utils/rabbit';
 import { initDatabase } from './database';
-import { handleValidationError } from './utils';
-import { tokenValidate } from './utils/auth';
-import { initNesWebsocket, WebsocketPaths } from './websocket';
+import { handleValidationError, responseHandler } from './utils';
+import { dualAuthScheme, tokenValidate } from './utils/auth';
+import { rabbitController } from './controllers/controller.rabbit';
+import { initNesWebsocket } from './websocket';
 
-export let publishInstance;
+const HapiSwagger = require('hapi-swagger');
+const Package = require('../../package.json');
+
+SwaggerOptions.info.version = Package.version;
+
 const init = async () => {
   const server = await new Hapi.Server({
     port: config.server.port,
@@ -27,10 +36,17 @@ const init = async () => {
     },
   });
 
-  await server.register([Nes, Inert, Vision, Bearer]);
+  server.realm.modifiers.route.prefix = '/api';
+
+  await server.register([
+    Inert,
+    Vision,
+    Bearer,
+    Nes,
+    { plugin: HapiSwagger, options: SwaggerOptions },
+  ]);
 
   server.app.db = await initDatabase(true, true);
-  server.app.rabbit = await initRabbitMQ();
   server.app.scheduler = await run({
     connectionString: config.database.link,
     concurrency: 5,
@@ -38,14 +54,38 @@ const init = async () => {
     taskDirectory: `${__dirname}/jobs`,
   });
 
+  server.auth.scheme('dual-auth', dualAuthScheme);
+  server.auth.strategy('dual-auth', 'dual-auth');
   server.auth.strategy('jwt-access', 'bearer-access-token', {
     validate: tokenValidate,
   });
-  server.auth.default('jwt-access');
+  server.auth.default('dual-auth');
 
+  server.route(routes);
+
+  server.ext('onPreResponse', responseHandler);
+
+  rabbitController.initMessageBroker();
   initNesWebsocket(server);
-  publishInstance = server.publish;
+
   await server.app.scheduler.addJob('executeLocalQueue', {}, { jobKey: 'local_query' });
+
+  await server.register({
+    plugin: HapiPulse,
+    options: {
+      timeout: 15000,
+      signals: ['SIGINT'],
+    },
+  });
+
+  await server.register({
+    plugin: HapiCors,
+    options: config.cors,
+  });
+
+  appInstances.server = server;
+  appInstances.database = server.app.db;
+  appInstances.scheduler = server.app.scheduler;
 
   try {
     await server.start();

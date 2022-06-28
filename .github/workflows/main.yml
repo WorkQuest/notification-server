@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Copy code files to container
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v1
         with:
           node-version: '14.x'
 
@@ -28,12 +28,12 @@ jobs:
   deploy-prod:
     environment: production
     if: "github.ref == 'refs/heads/master'"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [ build ]
 
     steps:
       - name: Copy code files to container
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Environment preparation
         run: |
@@ -51,16 +51,20 @@ jobs:
           chmod 700 ci-scripts
           cd ci-scripts
           ansible-playbook -i "${{ secrets.REMOTE_HOST }}" -e "ansible_user=${{ secrets.REMOTE_USER }} \
-            DB_LINK=${{ secrets.DB_LINK }} \
+            DB_LINK=${{ secrets.PROD_DB_LINK }} \
             
-            MAIN_JWT_ACCESS_SECRET_KEY=${{ secrets.MAIN_JWT_ACCESS_SECRET_KEY }} \
-            ADMIN_JWT_ACCESS_SECRET_KEY=${{ secrets.ADMIN_JWT_ACCESS_SECRET_KEY }} \
+            MAIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_MAIN_JWT_ACCESS_SECRET_KEY }} \
+            ADMIN_JWT_ACCESS_SECRET_KEY=${{ secrets.PROD_ADMIN_JWT_ACCESS_SECRET_KEY }} \
             
-            SERVER_HOST=${{ secrets.SERVER_HOST }} \
-            SERVER_PORT=${{ secrets.SERVER_PORT }} \
+            SERVER_HOST=${{ secrets.PROD_SERVER_HOST }} \
+            SERVER_PORT=${{ secrets.PROD_SERVER_PORT }} \
+          
+            PUSH_API_FILE=${{ secrets.PROD_PUSH_API_FILE }} \
+            PUSH_API_FILE_DATA=${{ secrets.PROD_PUSH_API_FILE_DATA }} \
+            PUSH_API_DATABASE=${{ secrets.PROD_PUSH_API_DATABASE }} \
 
-            BASE_URL=${{ secrets.BASE_URL }} \
-            RABBIT_URL=${{ secrets.RABBIT_URL }} \
+            BASE_URL=${{ secrets.PROD_BASE_URL }} \
+            RABBIT_URL=${{ secrets.PROD_RABBIT_URL }} \
           
             backend_bin=${{ secrets.backend_bin }} \
             PM2_SERVICE_NAME=${{ secrets.PM2_SERVICE_NAME }} \
@@ -70,12 +74,12 @@ jobs:
     environment: develop
 
     if: "github.ref == 'refs/heads/develop'"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [ build ]
 
     steps:
       - name: Copy code files to container
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Environment preparation
         run: |
@@ -103,6 +107,10 @@ jobs:
 
             RABBIT_URL=${{ secrets.DEV_RABBIT_URL }} \
             BASE_URL=${{ secrets.DEV_BASE_URL }} \
+          
+            PUSH_API_FILE=${{ secrets.DEV_PUSH_API_FILE }} \
+            PUSH_API_FILE_DATA=${{ secrets.DEV_PUSH_API_FILE_DATA }} \
+            PUSH_API_DATABASE=${{ secrets.DEV_PUSH_API_DATABASE }} \
             
             backend_bin=${{ secrets.backend_bin }} \
             PM2_SERVICE_NAME=${{ secrets.PM2_SERVICE_NAME }} \

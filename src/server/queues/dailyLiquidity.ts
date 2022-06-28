@@ -1,8 +1,7 @@
-import { publishInstance } from '../index';
-import { WebsocketPaths } from '../websocket';
-import { checkSuccessQuery } from '../utils/queues';
+import { checkSuccessQueue } from '../utils/queues';
+import { publishDailyLiquidityNotifications } from '../websocket/websocket.dailyLiquidity';
 
 export async function dailyLiquidityNotifications(context, message) {
-  await publishInstance(WebsocketPaths.DailyLiquidity, context);
-  await checkSuccessQuery(message);
+  await publishDailyLiquidityNotifications(context);
+  await checkSuccessQueue(message, false);
 }

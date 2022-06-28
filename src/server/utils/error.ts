@@ -2,13 +2,14 @@ import { LocalQueue } from '../database/models/LocalQueue';
 import moment from 'moment';
 
 export enum Errors {
+  NotFound = 404000,
   TokenExpired = 401001,
   TokenInvalid = 401002,
 }
 
 export async function onErroredQueue(message): Promise<void> {
   const [messageRow, isCreated] = await LocalQueue.findOrCreate({
-    where: { 'message.messageId': message.messageId },
+    where: { 'message.rabbitMessageId': message.rabbitMessageId },
     defaults: {
       message,
       attempts: 1,
