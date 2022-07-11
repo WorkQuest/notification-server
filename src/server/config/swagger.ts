@@ -127,6 +127,7 @@ __bridge:__
 
 --bridgeUsdt:__
 * SwapInitialized
+* TransactionError
 * TransactionSuccessful
 
 __report:__

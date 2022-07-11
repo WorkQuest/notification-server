@@ -3,6 +3,7 @@ import appInstances from '../config/appInstances';
 
 export enum BridgeUsdtNotificationActions {
   TransactionSuccessful = 'TransactionSuccessful',
+  TransactionError = 'TransactionError',
   SwapInitialized = 'SwapInitialized'
 }
 
