@@ -7,6 +7,7 @@ import { questNotifications } from './quest';
 import { daoNotifications } from './dao';
 import { referralNotifications } from './referral';
 import { pensionFundNotifications } from './pensionFund';
+import { bridgeUsdtNotification } from "./bridgeUsdt";
 
 // Commands list
 export const Queue: Queues = {
@@ -42,4 +43,8 @@ export const Queue: Queues = {
     description: 'Pension Fund notifications by wallet address',
     execute: pensionFundNotifications,
   },
+  bridge_usdt: {
+    description: 'Notifications from bridge USDT service by wallet address',
+    execute: bridgeUsdtNotification
+  }
 };

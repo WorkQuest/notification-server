@@ -11,7 +11,7 @@ import {
 
 export const notificationsExcludeSchema = Joi.string()
   .valid(...Object.values(ConsumerQueues))
-  .example(ConsumerQueues.DAO)
+  .example(ConsumerQueues['Bridge'])
   .label('NotificationsExclude');
 
 export const notificationsExcludeArray = Joi.array()
