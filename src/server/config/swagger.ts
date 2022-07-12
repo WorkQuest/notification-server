@@ -77,7 +77,7 @@ __Responses from REST API:__
 * __/notifications/bridge/{address}__ - without auth;
 * __/notifications/proposal/{address}__ - without auth;
 * __/notifications/referral/{address}__ - without auth;
-* __/notifications/bridge-usdt/{address} - without auth;
+* __/notifications/bridgeUsdt/{address}__ - without auth;
 * __/notifications/pensionFund/{address}__ - without auth;
 ---
 

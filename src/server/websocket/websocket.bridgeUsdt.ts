@@ -22,8 +22,8 @@ const bridgeUsdtSubscriptionFilter = async function(
 };
 
 export const bridgeUsdtSubscriptionOption = {
-  path: '/notifications/bridge-usdt/{address}',
-  pathWithoutAddress: '/notifications/bridge-usdt',
+  path: '/notifications/bridgeUsdt/{address}',
+  pathWithoutAddress: '/notifications/bridgeUsdt',
   option: { filter: bridgeUsdtSubscriptionFilter },
 };
 
