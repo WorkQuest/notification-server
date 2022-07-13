@@ -150,6 +150,10 @@ jobs:
           
             SERVER_HOST=${{ secrets.SERVER_HOST }} \
             SERVER_PORT=${{ secrets.SERVER_PORT }} \
+          
+            PUSH_API_FILE=${{ secrets.PUSH_API_FILE }} \
+            PUSH_API_FILE_DATA=${{ secrets.PUSH_API_FILE_DATA }} \
+            PUSH_API_DATABASE=${{ secrets.PUSH_API_DATABASE }} \
 
             RABBIT_URL=${{ secrets.RABBIT_URL }} \
             BASE_URL=${{ secrets.BASE_URL }} \
