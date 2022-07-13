@@ -14,13 +14,13 @@ export async function verifyJwt(token: string, secret: string) {
 }
 
 export async function tokenValidate(r, token: string) {
-  const decodedJwt = jwt.decode(token);
+  const decodedJwt: any = jwt.decode(token);
 
   const secretKey = decodedJwt.userId
     ? config.auth.jwt.mainAccessSecretKey
     : config.auth.jwt.adminAccessSecretKey;
 
-  const data = await verifyJwt(token, secretKey);
+  const data: any = await verifyJwt(token, secretKey);
 
   return {
     isValid: true,

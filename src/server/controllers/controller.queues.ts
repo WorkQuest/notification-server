@@ -26,14 +26,7 @@ export class QueueController {
 
   public initQueues() {
     try {
-      this.initQueue(ConsumerQueues.DAO);
-      this.initQueue(ConsumerQueues.Chat);
-      this.initQueue(ConsumerQueues.Quest);
-      this.initQueue(ConsumerQueues.Bridge);
-      this.initQueue(ConsumerQueues.Proposal);
-      this.initQueue(ConsumerQueues.Referral);
-      this.initQueue(ConsumerQueues.PensionFund);
-      this.initQueue(ConsumerQueues.DailyLiquidity);
+      Object.values(ConsumerQueues).map(queue => this.initQueue(queue));
     } catch (err) {
       console.error(err);
     }

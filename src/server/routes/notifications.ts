@@ -26,7 +26,8 @@ export default [
 Available notifications queues:
 quest - notifications from quest backend and contract;
 proposal - notifications from WorkQuest DAO Proposals;
-dao - notifications from WorkQuest DAO Platform.
+dao - notifications from WorkQuest DAO Platform;
+report - notification about report status.
       `,
       validate: {
         query: Joi.object({

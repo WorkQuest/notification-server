@@ -12,9 +12,11 @@ export async function checkSuccessQueue(message, isNeededNotification: boolean):
 
     const notifications = notification.recipients.map((userId) => {
       return { queueName, userId, notification };
-    });
+    }).filter((notification) => notification.userId && !notification.userId.startsWith('0x'));
 
-    await Notification.bulkCreate(notifications);
+    if (notifications.length) {
+      await Notification.bulkCreate(notifications);
+    }
   }
 
   if (errored) {
