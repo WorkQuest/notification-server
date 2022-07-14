@@ -57,8 +57,7 @@ export default async function (payload: PushNotificationPayload) {
         },
         data: {
           action: payload.action,
-          ...(payload.data.id && { id: payload.data.id }),
-          ...(!payload.data.id && { data: JSON.stringify(payload.data) })
+          data: payload.data,
         }
       });
     } catch (err) {
