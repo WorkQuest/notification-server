@@ -125,7 +125,7 @@ __bridge:__
 * SwapInitialized
 * SwapRedeemed
 
---bridgeUsdt:__
+__bridgeUsdt:__
 * SwapInitialized
 * TransactionError
 * TransactionSuccessful
