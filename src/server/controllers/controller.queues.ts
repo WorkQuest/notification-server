@@ -1,5 +1,6 @@
 import { ConsumerQueues } from '../utils/consumers';
 import { messageController } from './controller.message';
+import { Logger } from "../config/pino";
 
 export class QueueController {
   private channel;
@@ -28,7 +29,7 @@ export class QueueController {
     try {
       Object.values(ConsumerQueues).map(queue => this.initQueue(queue));
     } catch (err) {
-      console.error(err);
+      Logger.error(err, 'Can`t create queues');
     }
   }
 }

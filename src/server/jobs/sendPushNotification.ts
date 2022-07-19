@@ -4,6 +4,7 @@ import { addJob } from '../utils/scheduler';
 import * as admin from 'firebase-admin';
 import config from '../config/config';
 import * as path from 'path';
+import { Logger } from "../config/pino";
 
 const intervalPlural = require('i18next-intervalplural-postprocessor');
 
@@ -61,7 +62,7 @@ export default async function (payload: PushNotificationPayload) {
         }
       });
     } catch (err) {
-      console.log(err);
+      Logger.error(err, 'Sending push notification error');
 
       throw Error('FCM sending error');
     }

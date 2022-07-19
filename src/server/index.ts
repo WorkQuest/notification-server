@@ -10,17 +10,26 @@ import routes from './routes';
 import config from './config/config';
 import SwaggerOptions from './config/swagger';
 import appInstances from './config/appInstances';
-import { run } from 'graphile-worker';
+import { run, Logger as graphileLogger } from 'graphile-worker';
 import { initDatabase } from './database';
 import { handleValidationError, responseHandler } from './utils';
 import { dualAuthScheme, tokenValidate } from './utils/auth';
 import { rabbitController } from './controllers/controller.rabbit';
 import { initNesWebsocket } from './websocket';
+import { Logger } from "./config/pino";
 
 const HapiSwagger = require('hapi-swagger');
 const Package = require('../../package.json');
 
 SwaggerOptions.info.version = Package.version;
+
+function logFactory() {
+  return (level, message, meta) => {
+    if (level !== 'debug') {
+      Logger[level](message);
+    }
+  }
+}
 
 const init = async () => {
   const server = await new Hapi.Server({
@@ -46,8 +55,11 @@ const init = async () => {
     { plugin: HapiSwagger, options: SwaggerOptions },
   ]);
 
-  server.app.db = await initDatabase(true, true);
+  const logger = new graphileLogger(logFactory);
+
+  server.app.db = await initDatabase(false, true);
   server.app.scheduler = await run({
+    logger,
     connectionString: config.database.link,
     concurrency: 5,
     pollInterval: 1000,
