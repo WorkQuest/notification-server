@@ -54,8 +54,11 @@ export default async function (payload: PushNotificationPayload) {
           clickAction: 'FLUTTER_NOTIFICATION_CLICK',
           body: description,
           sound: 'default',
-          data: JSON.stringify(payload)
         },
+        data: {
+          action: payload.action,
+          data: JSON.stringify(payload.data),
+        }
       });
     } catch (err) {
       console.log(err);
