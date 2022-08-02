@@ -17,7 +17,7 @@ ___
 
 ## Folders structure
 
-    ├── .github                     # Deploy environments and ci
+    ├── .github                     # GitHub CI
     ├── ci-scripts                  # Deploy tasks and templates
     ├── locale                      # Localization files for push-notifications
     ├── src                         # Source directory
@@ -80,10 +80,10 @@ npm run compile
 > * __/notifications/chat__ - need JWT auth;
 > * __/notifications/quest__ - need JWT auth;
 > * __/notifications/report__ - need JWT auth;
+> * __/notifications/referral__ - need JWT auth;
 > * __/notifications/dailyLiquidity__ - without auth.
 > * __/notifications/bridge/{address}__ - without auth;
 > * __/notifications/proposal/{address}__ - without auth;
-> * __/notifications/referral/{address}__ - without auth;
 > * __/notifications/bridgeUsdt/{address}__ - without auth;
 > * __/notifications/pensionFund/{address}__ - without auth.
 
