@@ -3,6 +3,7 @@ import { LocalQueue } from '../database/models/LocalQueue';
 import moment from 'moment';
 import { Queue } from '../queues';
 import appInstances from '../config/appInstances';
+import { Logger } from "../config/pino";
 
 export class MessageController {
   private async delayMessage(message, delay) {
@@ -40,8 +41,6 @@ export class MessageController {
 
     if (!isCreated) {
       if (messageRow.attempts >= 25) {
-        await messageRow.destroy();
-
         return;
       }
 
@@ -70,7 +69,11 @@ export class MessageController {
     try {
       // Executing a command for this queue
       await queue.execute(parsedContent, message);
+      
+      Logger.info('Executed notification with action "%s"', parsedContent.action);
     } catch (err) {
+      Logger.error(err, "Executing message error");
+
       await this.processMessage(message, err.message);
     }
   }

@@ -1,12 +1,12 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
-import moment from 'moment';
+import { Column, DataType, Model, Table } from "sequelize-typescript";
+import moment from "moment";
 
 @Table({
   scopes: {
     defaultScope: {
-      order: [['id', 'DESC']],
-    },
-  },
+      order: [["id", "DESC"]]
+    }
+  }
 })
 export class LocalQueue extends Model {
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
@@ -25,11 +25,12 @@ export class LocalQueue extends Model {
   runAt!: Date;
 
   async addAttempt(): Promise<void> {
-    this.attempts += 1;
-    this.runAt = moment()
-      .add(this.attempts * 5, 'seconds')
-      .toDate();
-
-    await this.save();
+    await this.increment("attempts");
+    await this.setDataValue(
+      "runAt",
+      moment()
+        .add(this.attempts * 5, "seconds")
+        .toDate()
+    );
   }
 }

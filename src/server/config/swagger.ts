@@ -73,10 +73,10 @@ __Responses from REST API:__
 * __/notifications/chat__ - need JWT auth;
 * __/notifications/quest__ - need JWT auth;
 * __/notifications/report__ - need JWT auth;
+* __/notifications/referral__ - need JWT auth;
 * __/notifications/dailyLiquidity__ - without auth.
 * __/notifications/bridge/{address}__ - without auth;
 * __/notifications/proposal/{address}__ - without auth;
-* __/notifications/referral/{address}__ - without auth;
 * __/notifications/bridgeUsdt/{address}__ - without auth;
 * __/notifications/pensionFund/{address}__ - without auth;
 ---

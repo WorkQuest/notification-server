@@ -18,21 +18,16 @@ const referralSubscriptionFilter = async function (
   notificationPayload: ReferralNotificationPayload,
   options: { credentials: Credentials },
 ): Promise<boolean> {
-  return true;
+  return options.credentials.auth
+    ? notificationPayload.recipients.includes(options.credentials.id)
+    : false;
 };
 
 export const referralSubscriptionOption = {
-  path: '/notifications/referral/{address}',
-  pathWithoutAddress: '/notifications/referral',
+  path: '/notifications/referral',
   option: { filter: referralSubscriptionFilter },
 };
 
-export async function publishReferralNotifications(
-  recipientAddress: string,
-  notificationPayload: ReferralNotificationPayload,
-) {
-  return appInstances.server.publish(
-    referralSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
-    notificationPayload,
-  );
+export async function publishReferralNotifications(notificationPayload: ReferralNotificationPayload) {
+  return appInstances.server.publish(referralSubscriptionOption.path, notificationPayload,);
 }

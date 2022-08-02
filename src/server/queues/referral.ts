@@ -1,7 +1,10 @@
+import { publishReferralNotifications, ReferralNotificationActions } from "../websocket/websocket.referral";
 import { checkSuccessQueue } from '../utils/queues';
-import { publishReferralNotifications } from '../websocket/websocket.referral';
 
 export async function referralNotifications(context, message): Promise<void> {
-  await publishReferralNotifications(context.recipients[0], context);
-  await checkSuccessQueue(message, false);
+  await publishReferralNotifications(context);
+  await checkSuccessQueue(
+    message,
+    context.action === ReferralNotificationActions.PaidReferral
+  );
 }
