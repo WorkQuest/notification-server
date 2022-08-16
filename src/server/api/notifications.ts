@@ -51,5 +51,19 @@ export async function markRead(r) {
     },
   );
 
-  return output({});
+  return output();
+}
+
+export async function markAllRead(r) {
+  if (!r.auth.credentials.id) {
+    return output();
+  }
+
+  await Notification.update({
+    seen: true,
+  }, {
+    where: { userId: r.auth.credentials.id },
+  });
+
+  return output();
 }

@@ -79,4 +79,18 @@ report - notification about report status.
       },
     },
   },
+  {
+    method: 'PUT',
+    path: '/notifications/mark-read-all',
+    handler: handlers.markAllRead,
+    options: {
+      auth: 'jwt-access',
+      id: 'v1.notifications.markReadNotifications',
+      tags: ['api', 'notifications'],
+      description: 'Mark all notifications as read',
+      response: {
+        schema: emptyOkSchema,
+      },
+    },
+  },
 ];
