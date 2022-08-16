@@ -85,7 +85,7 @@ report - notification about report status.
     handler: handlers.markAllRead,
     options: {
       auth: 'jwt-access',
-      id: 'v1.notifications.markReadNotifications',
+      id: 'v1.notifications.markReadAllNotifications',
       tags: ['api', 'notifications'],
       description: 'Mark all notifications as read',
       response: {
