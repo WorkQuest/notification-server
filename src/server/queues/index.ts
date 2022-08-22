@@ -10,9 +10,14 @@ import { pensionFundNotifications } from './pensionFund';
 import { bridgeUsdtNotification } from "./bridgeUsdt";
 import { userNotifications } from "./user";
 import { reportNotifications } from "./report";
+import { loanAuctionNotifications } from "./loan-auction";
 
 // Commands list
 export const Queue: Queues = {
+  loan_auction: {
+    description: 'Notifications from loan auction',
+    execute: loanAuctionNotifications,
+  },
   bridge: {
     description: 'Notifications from bridge service by wallet address',
     execute: bridgeNotifications,
