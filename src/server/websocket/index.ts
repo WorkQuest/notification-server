@@ -20,8 +20,8 @@ export function initNesWebsocket(server) {
     proposalSubscriptionOption,
     referralSubscriptionOption,
     bridgeUsdtSubscriptionOption,
-    LoanAuctionSubscriptionOption,
     pensionFundSubscriptionOption,
+    LoanAuctionSubscriptionOption,
     dailyLiquiditySubscriptionOption,
 
   ].forEach(({ option, path }) => server.subscription(path, option))
