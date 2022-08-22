@@ -12,7 +12,7 @@ type LoanAuctionNotificationPayload = {
   action: LoanAuctionNotificationActions;
 }
 
-const LoanAuctionSubscriptionOption = {
+export const LoanAuctionSubscriptionOption = {
   path: '/notifications/loan-auction',
   option: { filter: () => true },
 };
