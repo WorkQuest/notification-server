@@ -8,9 +8,16 @@ import { daoNotifications } from './dao';
 import { referralNotifications } from './referral';
 import { pensionFundNotifications } from './pensionFund';
 import { bridgeUsdtNotification } from "./bridgeUsdt";
+import { userNotifications } from "./user";
+import { reportNotifications } from "./report";
+import { loanAuctionNotifications } from "./loan-auction";
 
 // Commands list
 export const Queue: Queues = {
+  loan_auction: {
+    description: 'Notifications from loan auction',
+    execute: loanAuctionNotifications,
+  },
   bridge: {
     description: 'Notifications from bridge service by wallet address',
     execute: bridgeNotifications,
@@ -35,6 +42,14 @@ export const Queue: Queues = {
     description: 'Quest notifications for dao discussions',
     execute: daoNotifications,
   },
+  user: {
+    description: 'Default user notifications',
+    execute: userNotifications,
+  },
+  report: {
+    description: 'Report user notifications',
+    execute: reportNotifications,
+  },
   referral: {
     description: 'Referral program notifications',
     execute: referralNotifications,
@@ -46,5 +61,5 @@ export const Queue: Queues = {
   bridge_usdt: {
     description: 'Notifications from bridge USDT service by wallet address',
     execute: bridgeUsdtNotification
-  }
+  },
 };
