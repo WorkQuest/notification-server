@@ -25,8 +25,8 @@ export function initNesWebsocket(server) {
     loanAuctionSubscriptionOption,
     pensionFundSubscriptionOption,
     oraclePricesSubscriptionOption,
-    loanCollateralSubscriptionOption,
     dailyLiquiditySubscriptionOption,
+    loanCollateralSubscriptionOption,
 
   ].forEach(({ option, path }) => server.subscription(path, option))
 }
