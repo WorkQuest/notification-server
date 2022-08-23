@@ -11,10 +11,17 @@ export type LoanCollateralNotificationPayload = {
 }
 
 export const loanCollateralSubscriptionOption = {
+  pathWithoutAddress: '/notifications/loan-collateral',
   path: '/notifications/loan-collateral/{address}',
   option: { filter: () => { return true } },
 };
 
-export function publishLoanCollateralNotifications(notificationPayload: LoanCollateralNotificationPayload) {
-  return appInstances.server.publish(loanCollateralSubscriptionOption.path, notificationPayload);
+export function publishLoanCollateralNotifications(
+  recipientAddress: string,
+  notificationPayload: LoanCollateralNotificationPayload
+) {
+  return appInstances.server.publish(
+    loanCollateralSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
+    notificationPayload,
+  );
 }
