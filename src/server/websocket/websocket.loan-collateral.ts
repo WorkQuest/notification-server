@@ -1,6 +1,8 @@
 import appInstances from "../config/appInstances";
 
 export enum LoanCollateralNotificationActions {
+  Moved = 'Moved',
+  Removed = 'Removed',
   Produced = 'Produced',
 }
 
