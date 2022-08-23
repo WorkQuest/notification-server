@@ -11,9 +11,14 @@ import { bridgeUsdtNotification } from "./bridgeUsdt";
 import { userNotifications } from "./user";
 import { reportNotifications } from "./report";
 import { loanAuctionNotifications } from "./loan-auction";
+import { LoanCollateralNotification } from "./loan-collateral";
 
 // Commands list
 export const Queue: Queues = {
+  loan_collateral: {
+    description: 'Notifications from loan collateral',
+    execute: LoanCollateralNotification,
+  },
   loan_auction: {
     description: 'Notifications from loan auction',
     execute: loanAuctionNotifications,
