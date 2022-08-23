@@ -4,6 +4,7 @@ export enum LoanCollateralNotificationActions {
   Moved = 'Moved',
   Removed = 'Removed',
   Produced = 'Produced',
+  UpdatedPrices = 'UpdatedPrices',
 }
 
 export type LoanCollateralNotificationPayload = {
