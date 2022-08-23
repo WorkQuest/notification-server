@@ -7,17 +7,17 @@ enum LoanAuctionNotificationActions {
   Liquidated = 'Liquidated',
 }
 
-type LoanAuctionNotificationPayload = {
+export type LoanAuctionNotificationPayload = {
   data: any;
   recipients: string[];
   action: LoanAuctionNotificationActions;
 }
 
-export const LoanAuctionSubscriptionOption = {
+export const loanAuctionSubscriptionOption = {
   path: '/notifications/loan-auction',
   option: { filter: () => true },
 };
 
 export function publishLoanAuctionNotifications(notificationPayload: LoanAuctionNotificationPayload) {
-  return appInstances.server.publish(LoanAuctionSubscriptionOption.path, notificationPayload);
+  return appInstances.server.publish(loanAuctionSubscriptionOption.path, notificationPayload);
 }

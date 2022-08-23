@@ -8,7 +8,8 @@ import { referralSubscriptionOption } from './websocket.referral';
 import { pensionFundSubscriptionOption } from './websocket.pensionFund';
 import { reportSubscriptionOption } from './websocket.report';
 import { bridgeUsdtSubscriptionOption } from "./websocket.bridgeUsdt";
-import { LoanAuctionSubscriptionOption } from "./websocket.loan-auction"
+import { loanAuctionSubscriptionOption } from "./websocket.loan-auction"
+import { loanCollateralSubscriptionOption } from "./websocket.loan-collateral";
 
 export function initNesWebsocket(server) {
   [
@@ -20,8 +21,9 @@ export function initNesWebsocket(server) {
     proposalSubscriptionOption,
     referralSubscriptionOption,
     bridgeUsdtSubscriptionOption,
-    LoanAuctionSubscriptionOption,
+    loanAuctionSubscriptionOption,
     pensionFundSubscriptionOption,
+    loanCollateralSubscriptionOption,
     dailyLiquiditySubscriptionOption,
 
   ].forEach(({ option, path }) => server.subscription(path, option))
