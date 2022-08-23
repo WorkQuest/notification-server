@@ -10,6 +10,7 @@ import { reportSubscriptionOption } from './websocket.report';
 import { bridgeUsdtSubscriptionOption } from "./websocket.bridgeUsdt";
 import { loanAuctionSubscriptionOption } from "./websocket.loan-auction"
 import { loanCollateralSubscriptionOption } from "./websocket.loan-collateral";
+import { oraclePricesSubscriptionOption } from "./websocket.oracle-prices";
 
 export function initNesWebsocket(server) {
   [
@@ -23,6 +24,7 @@ export function initNesWebsocket(server) {
     bridgeUsdtSubscriptionOption,
     loanAuctionSubscriptionOption,
     pensionFundSubscriptionOption,
+    oraclePricesSubscriptionOption,
     loanCollateralSubscriptionOption,
     dailyLiquiditySubscriptionOption,
 
