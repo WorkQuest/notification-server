@@ -12,9 +12,14 @@ import { userNotifications } from "./user";
 import { reportNotifications } from "./report";
 import { loanAuctionNotifications } from "./loan-auction";
 import { LoanCollateralNotification } from "./loan-collateral";
+import { oraclePricesNotifications } from "./oracle-prices";
 
 // Commands list
 export const Queue: Queues = {
+  oracle_prices: {
+    description: "Oracle prices",
+    execute: oraclePricesNotifications,
+  },
   loan_collateral: {
     description: 'Notifications from loan collateral',
     execute: LoanCollateralNotification,
