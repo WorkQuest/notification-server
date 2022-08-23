@@ -3,6 +3,7 @@ import appInstances from "../config/appInstances";
 enum LoanAuctionNotificationActions {
   Bought = 'Bought',
   Started = 'Started',
+  Canceled = 'Canceled',
   Liquidated = 'Liquidated',
 }
 
