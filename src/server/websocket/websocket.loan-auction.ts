@@ -5,6 +5,7 @@ enum LoanAuctionNotificationActions {
   Started = 'Started',
   Canceled = 'Canceled',
   Liquidated = 'Liquidated',
+  NotLiquidate = 'NotLiquidate',
 }
 
 export type LoanAuctionNotificationPayload = {
