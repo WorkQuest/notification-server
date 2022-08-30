@@ -71,6 +71,9 @@ npm run compile
 > * __referral__ - Referral Program notifications from contract;
 > * __bridge_usdt__ - notification from bridge usdt;
 > * __pension_fund__ - notifications from Pension Fund;
+> * __loan_auction__ - notifications from loan auction;
+> * __oracle_prices__ - notification about oracle prices update;
+> * __loan_collateral__ - notifications from collateral;
 > * __daily_liquidity__ - notifications for WQT_WBNB and WQT_WETH liquidity.
 
 ---
@@ -81,11 +84,14 @@ npm run compile
 > * __/notifications/quest__ - need JWT auth;
 > * __/notifications/report__ - need JWT auth;
 > * __/notifications/referral__ - need JWT auth;
+> * __/notifications/loan-auction__ - without auth;
+> * __/notifications/oracle-prices__ - without auth;
 > * __/notifications/dailyLiquidity__ - without auth.
 > * __/notifications/bridge/{address}__ - without auth;
 > * __/notifications/proposal/{address}__ - without auth;
 > * __/notifications/bridgeUsdt/{address}__ - without auth;
-> * __/notifications/pensionFund/{address}__ - without auth.
+> * __/notifications/pensionFund/{address}__ - without auth;
+> * __/notifications/loan-collateral/{address}__ - without auth.
 
 ---
 
@@ -151,3 +157,19 @@ npm run compile
 > ### DailyLiquidity:
 > * DailyLiquidityWqtWbnb
 > * DailyLiquidityWqtWeth
+
+> ### OraclePrices:
+> * DeterminationPriceUpdated
+
+> ### LoanAuction:
+> * Bought
+> * Started
+> * Canceled
+> * Liquidated
+> * NotLiquidate
+
+> ### LoanCollateral:
+> * Moved
+> * Removed
+> * Produced
+> * UpdatedPrices

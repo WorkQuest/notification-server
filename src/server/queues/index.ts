@@ -7,22 +7,22 @@ import { questNotifications } from './quest';
 import { daoNotifications } from './dao';
 import { referralNotifications } from './referral';
 import { pensionFundNotifications } from './pensionFund';
-import { bridgeUsdtNotification } from "./bridgeUsdt";
-import { userNotifications } from "./user";
-import { reportNotifications } from "./report";
-import { loanAuctionNotifications } from "./loan-auction";
-import { LoanCollateralNotification } from "./loan-collateral";
-import { oraclePricesNotifications } from "./oracle-prices";
+import { bridgeUsdtNotification } from './bridgeUsdt';
+import { userNotifications } from './user';
+import { reportNotifications } from './report';
+import { loanAuctionNotifications } from './loanAuction';
+import { loanCollateralNotification } from './loanCollateral';
+import { oraclePricesNotifications } from './oraclePrices';
 
 // Commands list
 export const Queue: Queues = {
   oracle_prices: {
-    description: "Oracle prices",
+    description: 'Oracle prices',
     execute: oraclePricesNotifications,
   },
   loan_collateral: {
     description: 'Notifications from loan collateral',
-    execute: LoanCollateralNotification,
+    execute: loanCollateralNotification,
   },
   loan_auction: {
     description: 'Notifications from loan auction',
@@ -70,6 +70,6 @@ export const Queue: Queues = {
   },
   bridge_usdt: {
     description: 'Notifications from bridge USDT service by wallet address',
-    execute: bridgeUsdtNotification
+    execute: bridgeUsdtNotification,
   },
 };

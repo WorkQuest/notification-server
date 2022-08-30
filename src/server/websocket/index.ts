@@ -7,10 +7,10 @@ import { daoSubscriptionOption } from './websocket.dao';
 import { referralSubscriptionOption } from './websocket.referral';
 import { pensionFundSubscriptionOption } from './websocket.pensionFund';
 import { reportSubscriptionOption } from './websocket.report';
-import { bridgeUsdtSubscriptionOption } from "./websocket.bridgeUsdt";
-import { loanAuctionSubscriptionOption } from "./websocket.loan-auction"
-import { loanCollateralSubscriptionOption } from "./websocket.loan-collateral";
-import { oraclePricesSubscriptionOption } from "./websocket.oracle-prices";
+import { bridgeUsdtSubscriptionOption } from './websocket.bridgeUsdt';
+import { loanAuctionSubscriptionOption } from './websocket.loanAuction';
+import { loanCollateralSubscriptionOption } from './websocket.loanCollateral';
+import { oraclePricesSubscriptionOption } from './websocket.oraclePrices';
 
 export function initNesWebsocket(server) {
   [
@@ -27,6 +27,5 @@ export function initNesWebsocket(server) {
     oraclePricesSubscriptionOption,
     loanCollateralSubscriptionOption,
     dailyLiquiditySubscriptionOption,
-
-  ].forEach(({ option, path }) => server.subscription(path, option))
+  ].forEach(({ option, path }) => server.subscription(path, option));
 }

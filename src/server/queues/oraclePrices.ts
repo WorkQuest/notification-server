@@ -1,5 +1,5 @@
-import { checkSuccessQueue } from "../utils/queues";
-import { publishOraclePricesNotifications } from "../websocket/websocket.oracle-prices";
+import { publishOraclePricesNotifications } from '../websocket/websocket.oraclePrices';
+import { checkSuccessQueue } from '../utils/queues';
 
 export async function oraclePricesNotifications(context, message): Promise<void> {
   await publishOraclePricesNotifications(context);

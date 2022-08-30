@@ -1,4 +1,4 @@
-import appInstances from "../config/appInstances";
+import appInstances from '../config/appInstances';
 
 export enum LoanCollateralNotificationActions {
   Moved = 'Moved',
@@ -11,17 +11,17 @@ export type LoanCollateralNotificationPayload = {
   data: any;
   recipients: string[];
   action: LoanCollateralNotificationActions;
-}
+};
 
 export const loanCollateralSubscriptionOption = {
   pathWithoutAddress: '/notifications/loan-collateral',
   path: '/notifications/loan-collateral/{address}',
-  option: { filter: () => { return true } },
+  option: { filter: () => true },
 };
 
 export function publishLoanCollateralNotifications(
   recipientAddress: string,
-  notificationPayload: LoanCollateralNotificationPayload
+  notificationPayload: LoanCollateralNotificationPayload,
 ) {
   return appInstances.server.publish(
     loanCollateralSubscriptionOption.pathWithoutAddress + `/${recipientAddress}`,
